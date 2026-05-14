@@ -25,6 +25,7 @@
         cd ~
       '';
       extraConfig = ''
+        source ${pkgs.zoxide}/share/nushell/vendor/autoload/zoxide.nu
         def create_left_prompt [] {
           let path = (ansi blue) + ($env.PWD | str replace $env.HOME "~")
           $path + (ansi reset) + "\n"
@@ -85,7 +86,11 @@
     };
 
     programs.carapace.enable = true;
-    programs.zoxide.enable = true;
+    programs.zoxide = {
+      enable = true;
+      options = [ "--cmd cd" ];
+      enableNushellIntegration = false;
+    };
     programs.bat.enable = true;
     programs.ripgrep.enable = true;
 

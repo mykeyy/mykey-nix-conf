@@ -12,27 +12,6 @@
       fuckoff = "exit";
     };
 
-    programs.ghostty = {
-      enable = true;
-      settings = {
-        font-size = 14;
-        theme = "rose-pine";
-        background-opacity = 0.95;
-        command = "${pkgs.nushell}/bin/nu";
-        keybind = [
-          "alt+1=unbind"
-          "alt+2=unbind"
-          "alt+3=unbind"
-          "alt+4=unbind"
-          "alt+5=unbind"
-          "alt+6=unbind"
-          "alt+7=unbind"
-          "alt+8=unbind"
-          "alt+9=unbind"
-        ];
-      };
-    };
-
     programs.nushell = {
       enable = true;
       settings = {

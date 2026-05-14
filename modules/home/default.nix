@@ -53,6 +53,7 @@
     programs.oh-my-posh = {
       enable = true;
       useTheme = "catppuccin_mocha";
+      settings = builtins.fromJSON (builtins.readFile ../../configs/oh-my-posh.json);
     };
 
     programs.starship.enable = false;

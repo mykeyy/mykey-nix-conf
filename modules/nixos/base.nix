@@ -7,6 +7,9 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    hardware.enableAllFirmware = true;
+
     home-manager = {
       useGlobalPkgs = true;
       users.mykey.imports = [ config.flake.modules.homeManager.base ];

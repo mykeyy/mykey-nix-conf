@@ -11,10 +11,9 @@
     programs.ghostty = {
       enable = true;
       settings = {
-        font-size = 11;
+        font-size = 14;
         theme = "rose-pine";
-        background-opacity = 0.85;
-        window-theme = "auto";
+        background-opacity = 0.95;
       };
     };
 
@@ -49,25 +48,27 @@
     programs.fastfetch = {
       enable = true;
       settings = {
+        logo.source = ../../configs/fastfetch-logo.png;
         display.separator = " ";
         modules = [
-          { type = "custom"; format = "╭──────────────────────────────────────────╮"; }
+          { type = "custom"; format = "╭─────────────────────────────────────────────────────╮"; }
           { type = "os"; key = "  OS:"; keyColor = "red"; }
           { type = "kernel"; key = "  Kernel:"; keyColor = "red"; }
+          { type = "command"; key = "  OS Age:"; keyColor = "31"; text = "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"; }
           { type = "uptime"; key = "  Uptime:"; keyColor = "red"; }
           { type = "packages"; key = "  Packages:"; keyColor = "green"; }
           { type = "wm"; key = "  WM:"; keyColor = "yellow"; }
           { type = "shell"; key = "  Shell:"; keyColor = "yellow"; }
           { type = "terminal"; key = "  Terminal:"; keyColor = "yellow"; }
           { type = "localip"; key = "  Local IP:"; keyColor = "yellow"; }
-          { type = "custom"; format = "╰──────────────────────────────────────────╯"; }
+          { type = "custom"; format = "╰─────────────────────────────────────────────────────╯"; }
           "break"
-          { type = "custom"; format = "╭──────────────────────────────────────────╮"; }
+          { type = "custom"; format = "╭─────────────────────────────────────────────────────╮"; }
           { type = "cpu"; format = "{1}"; key = "  CPU:"; keyColor = "blue"; }
           { type = "gpu"; format = "{2}"; key = "  GPU:"; keyColor = "blue"; }
           { type = "memory"; key = "  Memory:"; keyColor = "magenta"; }
           { type = "disk"; key = "  Disk:"; keyColor = "green"; }
-          { type = "custom"; format = "╰──────────────────────────────────────────╯"; }
+          { type = "custom"; format = "╰─────────────────────────────────────────────────────╯"; }
         ];
       };
     };
@@ -153,6 +154,7 @@
       hyprshot
       spotify
       spicetify-cli
+      nerd-fonts.jetbrains-mono
     ];
 
     wayland.windowManager.sway = {

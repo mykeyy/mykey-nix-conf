@@ -167,22 +167,6 @@
           border = 3;
           titlebar = false;
         };
-        colors = {
-          focused = {
-            border = "#ebbcba";
-            background = "#ebbcba";
-            text = "#191724";
-            indicator = "#ebbcba";
-            childBorder = "#ebbcba";
-          };
-          unfocused = {
-            border = "#00000000";
-            background = "#00000000";
-            text = "#908caa";
-            indicator = "#00000000";
-            childBorder = "#00000000";
-          };
-        };
         keybindings = let
           sway = "swaymsg";
         in {

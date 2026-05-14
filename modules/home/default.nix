@@ -196,6 +196,7 @@
           "Mod1+Shift+8" = "move container to workspace number 8";
           "Mod1+Shift+9" = "move container to workspace number 9";
         };
+      };
     };
   };
 }

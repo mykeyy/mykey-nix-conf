@@ -6,7 +6,6 @@
       enable = true;
       autoEnable = true;
       polarity = "dark";
-      targets.oh-my-posh.enable = false;
       image = ../../wallpapers/wallpaper.jpg;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
       fonts = {

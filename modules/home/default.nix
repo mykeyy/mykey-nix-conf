@@ -147,6 +147,62 @@
       killall
       unzip
       wget
+      tofi
+      swaybg
+      swaylock
+      hyprshot
     ];
+
+    wayland.windowManager.sway = {
+      enable = true;
+      config = {
+        modifier = "Mod4";
+        terminal = "ghostty";
+        menu = "${pkgs.tofi}/bin/tofi-drun --drun-launch=true";
+        gaps = {
+          inner = 10;
+          outer = 10;
+        };
+        window = {
+          border = 3;
+          titlebar = false;
+        };
+        colors = {
+          focused = {
+            border = "#ebbcba";
+            background = "#ebbcba";
+            text = "#191724";
+            indicator = "#ebbcba";
+            childBorder = "#ebbcba";
+          };
+          unfocused = {
+            border = "#00000000";
+            background = "#00000000";
+            text = "#908caa";
+            indicator = "#00000000";
+            childBorder = "#00000000";
+          };
+        };
+        keybindings = let
+          sway = "swaymsg";
+        in {
+          "Mod1+Return" = "fullscreen";
+          "Mod1+q" = "kill";
+          "Mod1+f1" = "reload";
+          "Mod1+Shift+f4" = "exit";
+          "Mod4+Return" = "exec ghostty";
+          "Mod1+Space" = "exec ${pkgs.tofi}/bin/tofi-drun --drun-launch=true";
+          "Mod1+s" = "exec ${pkgs.hyprshot}/bin/hyprshot -m region --clipboard-only";
+          "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.5";
+          "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+          "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        } // builtins.listToAttrs (map (num: let
+          s = toString num;
+        in {
+          "Mod1+${s}" = "workspace number ${s}";
+          "Mod1+Shift+${s}" = "move container to workspace number ${s}";
+        }) (builtins.genList (x: x + 1) 9));
+      };
+    };
   };
 }

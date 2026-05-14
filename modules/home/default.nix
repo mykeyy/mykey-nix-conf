@@ -27,23 +27,20 @@
         $env.EDITOR = "hx"
         $env.VISUAL = "hx"
         $env.NH_FLAKE = $"($env.HOME)/.nix"
+        oh-my-posh init nu | save -f ~/.cache/oh-my-posh/init.nu
       '';
       extraConfig = ''
+        source ~/.cache/oh-my-posh/init.nu
         fastfetch
       '';
     };
 
-    programs.starship = {
+    programs.oh-my-posh = {
       enable = true;
-      settings = {
-        add_newline = false;
-        format = "$all";
-        character = {
-          success_symbol = "[➜](bold green)";
-          error_symbol = "[➜](bold red)";
-        };
-      };
+      useTheme = "catppuccin_mocha";
     };
+
+    programs.starship.enable = false;
 
     programs.fastfetch = {
       enable = true;

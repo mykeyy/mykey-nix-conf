@@ -1,6 +1,6 @@
 { config, inputs, ... }:
 {
-  configurations.tp490s.module = {
+  configurations.tp490s.module = { pkgs, ... }: {
     imports = with config.flake.modules.nixos; [
       ./_hardware.nix
       base

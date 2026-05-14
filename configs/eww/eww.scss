@@ -1,0 +1,35 @@
+* { all: unset; }
+
+.bar {
+  background-color: #191724;
+  padding: 2px 12px;
+}
+
+.workspaces .ws {
+  padding: 0 6px;
+  border-radius: 4px;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+}
+
+.workspaces .active {
+  background-color: #c4a7e7;
+  color: #191724;
+}
+
+.workspaces .inactive {
+  background-color: #26233a;
+  color: #908caa;
+}
+
+.clock {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  color: #e0def4;
+}
+
+.battery {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  color: #e0def4;
+}

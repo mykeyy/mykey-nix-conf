@@ -48,7 +48,10 @@
     programs.fastfetch = {
       enable = true;
       settings = {
-        logo.source = ../../configs/fastfetch-logo.png;
+        logo = {
+          source = ../../configs/fastfetch-logo.png;
+          width = 40;
+        };
         display.separator = " ";
         modules = [
           { type = "custom"; format = "╭─────────────────────────────────────────────────────╮"; }
@@ -131,6 +134,8 @@
       "plasma-localerc".source = ../../configs/plasma-localerc;
       "plasma-org.kde.plasma.desktop-appletsrc".source = ../../configs/plasma-org.kde.plasma.desktop-appletsrc;
       "ghostty/themes/rose-pine".source = ../../configs/ghostty-rose-pine;
+      "eww/eww.yuck".source = ../../configs/eww/eww.yuck;
+      "eww/eww.scss".source = ../../configs/eww/eww.scss;
     };
 
     home.packages = with pkgs; [
@@ -175,6 +180,9 @@
         workspace 3 output *
         workspace 4 output *
         workspace 5 output *
+        exec swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill
+        exec eww open bar
+        exec systemctl --user restart xdg-desktop-portal-wlr
       '';
       config = {
         modifier = "Mod4";
@@ -182,7 +190,7 @@
         menu = "${pkgs.tofi}/bin/tofi-drun --drun-launch=true";
         output."*".bg = "${../../wallpapers/wallpaper.jpg} fill";
         gaps = {
-          inner = 10;
+          inner = 12;
           outer = 10;
         };
         window = {
@@ -196,6 +204,8 @@
           "Mod1+Return" = "fullscreen";
           "Mod1+q" = "kill";
           "Mod1+f1" = "reload";
+          "Mod4+Shift+e" = "exit";
+          "Mod4+Shift+q" = "kill";
           "Mod4+Return" = "exec ghostty";
           "Mod1+Space" = "exec ${pkgs.tofi}/bin/tofi-drun --drun-launch=true";
           "Mod1+s" = "exec ${pkgs.hyprshot}/bin/hyprshot -m region --clipboard-only";

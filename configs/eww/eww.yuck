@@ -1,0 +1,27 @@
+(defwindow bar
+  :monitor 0
+  :geometry (geometry :x "0" :y "0" :width "100%" :height "36px" :anchor "top center")
+  :stacking "fg"
+  :windowtype "dock"
+  (bar))
+
+(defwidget bar []
+  (box :class "bar" :spacing 8 :space-evenly false
+    (workspaces)
+    (box :halign "center" :spacing 12
+      (clock))
+    (box :halign "end" :spacing 8
+      (battery))))
+
+(defwidget workspaces []
+  (box :class "workspaces" :spacing 4
+    (for ws in (workspaces)
+      (button :class (strf "ws ${ws.active ? "active" : "inactive"}") :onclick (strf "swaymsg workspace number ${ws.num}")
+        (literal (strf " ${ws.num} "))))))
+
+(defwidget clock []
+  (label :class "clock" :text (strftime "%H:%M")))
+
+(defwidget battery []
+  (box :spacing 4
+    (label :class "battery" :text (strf "󰁹 ${round(battery.percentage, 0)}%"))))

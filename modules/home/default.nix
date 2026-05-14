@@ -27,6 +27,7 @@
         $env.EDITOR = "hx"
         $env.VISUAL = "hx"
         $env.NH_FLAKE = $"($env.HOME)/.nix"
+        mkdir ~/.cache/oh-my-posh
         oh-my-posh init nu | save -f ~/.cache/oh-my-posh/init.nu
       '';
       extraConfig = ''

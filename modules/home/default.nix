@@ -13,6 +13,8 @@
       settings = {
         font-size = 11;
         theme = "rose-pine";
+        background-opacity = 0.85;
+        window-theme = "auto";
       };
     };
 

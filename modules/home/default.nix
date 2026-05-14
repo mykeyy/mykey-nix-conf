@@ -46,13 +46,31 @@
         cd ~
       '';
       extraConfig = ''
+        def create_left_prompt [] {
+          let path = (ansi blue) + ($env.PWD | str replace $env.HOME "~")
+          $path + (ansi reset) + "\n"
+        }
+        $env.PROMPT_COMMAND = { || create_left_prompt };
+        $env.PROMPT_INDICATOR = { || $"(ansi green)λ(ansi reset) " };
         ${pkgs.fastfetch}/bin/fastfetch
       '';
     };
 
-    programs.oh-my-posh = {
+    programs.oh-my-posh.enable = false;
+
+    programs.ghostty = {
       enable = true;
-      settings = builtins.fromJSON (builtins.readFile ../../configs/oh-my-posh.json);
+      settings = {
+        font-size = 16;
+        theme = "Rose Pine";
+        background-opacity = 0.85;
+        command = "${pkgs.nushell}/bin/nu";
+        keybind = [
+          "alt+1=unbind" "alt+2=unbind" "alt+3=unbind"
+          "alt+4=unbind" "alt+5=unbind" "alt+6=unbind"
+          "alt+7=unbind" "alt+8=unbind" "alt+9=unbind"
+        ];
+      };
     };
 
     programs.starship.enable = false;
@@ -60,30 +78,29 @@
     programs.fastfetch = {
       enable = true;
       settings = {
-        logo = {
-          source = ../../configs/fastfetch-logo.png;
-          width = 40;
+        logo.source = "nixos";
+        display = {
+          size.binaryPrefix = "si";
+          color = "blue";
+          separator = "  ";
         };
-        display.separator = " ";
         modules = [
-          { type = "custom"; format = "╭─────────────────────────────────────────────────────╮"; }
-          { type = "os"; key = "  OS:"; keyColor = "red"; }
-          { type = "kernel"; key = "  Kernel:"; keyColor = "red"; }
-          { type = "command"; key = "  OS Age:"; keyColor = "31"; text = "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"; }
-          { type = "uptime"; key = "  Uptime:"; keyColor = "red"; }
-          { type = "packages"; key = "  Packages:"; keyColor = "green"; }
-          { type = "wm"; key = "  WM:"; keyColor = "yellow"; }
-          { type = "shell"; key = "  Shell:"; keyColor = "yellow"; }
-          { type = "terminal"; key = "  Terminal:"; keyColor = "yellow"; }
-          { type = "localip"; key = "  Local IP:"; keyColor = "yellow"; }
-          { type = "custom"; format = "╰─────────────────────────────────────────────────────╯"; }
+          { type = "os"; key = "os   "; keyColor = "blue"; format = "{name} {version}"; }
+          { type = "kernel"; key = "krnl "; keyColor = "blue"; }
+          { type = "packages"; key = "pkgs "; keyColor = "blue"; }
+          { type = "shell"; key = "shell"; keyColor = "blue"; }
           "break"
-          { type = "custom"; format = "╭─────────────────────────────────────────────────────╮"; }
-          { type = "cpu"; format = "{1}"; key = "  CPU:"; keyColor = "blue"; }
-          { type = "gpu"; format = "{2}"; key = "  GPU:"; keyColor = "blue"; }
-          { type = "memory"; key = "  Memory:"; keyColor = "magenta"; }
-          { type = "disk"; key = "  Disk:"; keyColor = "green"; }
-          { type = "custom"; format = "╰─────────────────────────────────────────────────────╯"; }
+          { type = "wm"; key = "wm   "; keyColor = "red"; }
+          { type = "terminal"; key = "term "; keyColor = "red"; }
+          { type = "font"; key = "font "; keyColor = "red"; }
+          { type = "icons"; key = "icon "; keyColor = "red"; }
+          "break"
+          { type = "cpu"; key = "cpu  "; keyColor = "green"; }
+          { type = "memory"; key = "mem  "; keyColor = "green"; }
+          { type = "gpu"; key = "gpu  "; keyColor = "green"; }
+          { type = "disk"; key = "disk "; keyColor = "green"; }
+          "break"
+          { type = "localip"; key = "ip   "; keyColor = "yellow"; }
         ];
       };
     };

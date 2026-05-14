@@ -19,6 +19,17 @@
         theme = "rose-pine";
         background-opacity = 0.95;
         command = "${pkgs.nushell}/bin/nu";
+        keybind = [
+          "alt+1=unbind"
+          "alt+2=unbind"
+          "alt+3=unbind"
+          "alt+4=unbind"
+          "alt+5=unbind"
+          "alt+6=unbind"
+          "alt+7=unbind"
+          "alt+8=unbind"
+          "alt+9=unbind"
+        ];
       };
     };
 
@@ -33,11 +44,8 @@
         $env.VISUAL = "hx"
         $env.NH_FLAKE = $"($env.HOME)/.nix"
         cd ~
-        mkdir ~/.cache/oh-my-posh
-        oh-my-posh init nu --print | save -f ~/.cache/oh-my-posh/init.nu
       '';
       extraConfig = ''
-        source ~/.cache/oh-my-posh/init.nu
         fastfetch
       '';
     };

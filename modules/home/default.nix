@@ -20,8 +20,17 @@
 
     programs.nushell = {
       enable = true;
+      settings = {
+        show_banner = false;
+        buffer_editor = "hx";
+      };
+      extraEnv = ''
+        $env.EDITOR = "hx"
+        $env.VISUAL = "hx"
+        $env.NH_FLAKE = $"($env.HOME)/.nix"
+      '';
       extraConfig = ''
-        $env.config.show_banner = false
+        fastfetch
       '';
     };
 
@@ -30,6 +39,10 @@
       settings = {
         add_newline = false;
         format = "$all";
+        character = {
+          success_symbol = "[➜](bold green)";
+          error_symbol = "[➜](bold red)";
+        };
       };
     };
 

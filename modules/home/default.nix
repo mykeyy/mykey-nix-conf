@@ -46,6 +46,32 @@
       };
     };
 
+    programs.fastfetch = {
+      enable = true;
+      settings = {
+        display.separator = " ";
+        modules = [
+          { type = "custom"; format = "╭──────────────────────────────────────────╮"; }
+          { type = "os"; key = "  OS:"; keyColor = "red"; }
+          { type = "kernel"; key = "  Kernel:"; keyColor = "red"; }
+          { type = "uptime"; key = "  Uptime:"; keyColor = "red"; }
+          { type = "packages"; key = "  Packages:"; keyColor = "green"; }
+          { type = "wm"; key = "  WM:"; keyColor = "yellow"; }
+          { type = "shell"; key = "  Shell:"; keyColor = "yellow"; }
+          { type = "terminal"; key = "  Terminal:"; keyColor = "yellow"; }
+          { type = "localip"; key = "  Local IP:"; keyColor = "yellow"; }
+          { type = "custom"; format = "╰──────────────────────────────────────────╯"; }
+          "break"
+          { type = "custom"; format = "╭──────────────────────────────────────────╮"; }
+          { type = "cpu"; format = "{1}"; key = "  CPU:"; keyColor = "blue"; }
+          { type = "gpu"; format = "{2}"; key = "  GPU:"; keyColor = "blue"; }
+          { type = "memory"; key = "  Memory:"; keyColor = "magenta"; }
+          { type = "disk"; key = "  Disk:"; keyColor = "green"; }
+          { type = "custom"; format = "╰──────────────────────────────────────────╯"; }
+        ];
+      };
+    };
+
     programs.carapace.enable = true;
     programs.zoxide.enable = true;
     programs.bat.enable = true;
@@ -111,7 +137,6 @@
       ripgrep
       fd
       btop
-      fastfetch
       gh
       glab
       lazygit

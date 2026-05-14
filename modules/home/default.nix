@@ -12,7 +12,9 @@
       enable = true;
       settings = {
         font-size = 11;
+        theme = "rose-pine";
       };
+    };
     };
 
     programs.nushell = {
@@ -87,6 +89,7 @@
       "plasmarc".source = ../../configs/plasmarc;
       "plasma-localerc".source = ../../configs/plasma-localerc;
       "plasma-org.kde.plasma.desktop-appletsrc".source = ../../configs/plasma-org.kde.plasma.desktop-appletsrc;
+      "ghostty/themes/rose-pine".source = ../../configs/ghostty-rose-pine;
     };
 
     home.packages = with pkgs; [

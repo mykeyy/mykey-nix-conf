@@ -33,6 +33,8 @@
 
     services.xserver.xkb.layout = "us";
 
+    environment.systemPackages = [ inputs.zen-browser.packages.x86_64-linux.default ];
+
     users.users.mykey = {
       isNormalUser = true;
       description = "mykey";

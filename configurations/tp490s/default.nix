@@ -39,6 +39,7 @@
     users.users.mykey = {
       isNormalUser = true;
       description = "mykey";
+      shell = pkgs.nushell;
       extraGroups = [ "networkmanager" "wheel" ];
     };
 

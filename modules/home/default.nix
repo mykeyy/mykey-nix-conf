@@ -8,6 +8,10 @@
     home.stateVersion = "25.11";
     programs.home-manager.enable = true;
 
+    home.shellAliases = {
+      fuckoff = "exit";
+    };
+
     programs.ghostty = {
       enable = true;
       settings = {
@@ -27,6 +31,7 @@
         $env.EDITOR = "hx"
         $env.VISUAL = "hx"
         $env.NH_FLAKE = $"($env.HOME)/.nix"
+        cd ~
         mkdir ~/.cache/oh-my-posh
         oh-my-posh init nu --print | save -f ~/.cache/oh-my-posh/init.nu
       '';

@@ -46,7 +46,7 @@
         cd ~
       '';
       extraConfig = ''
-        fastfetch
+        ${pkgs.fastfetch}/bin/fastfetch
       '';
     };
 

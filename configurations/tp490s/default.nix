@@ -13,6 +13,7 @@
       printing
       packages
       stylix
+      zen-browser
     ];
 
     networking.hostName = "tp490s";
@@ -33,7 +34,7 @@
 
     services.xserver.xkb.layout = "us";
 
-    environment.systemPackages = [ inputs.zen-browser.packages.x86_64-linux.default ];
+    environment.systemPackages = [ ];
 
     users.users.mykey = {
       isNormalUser = true;

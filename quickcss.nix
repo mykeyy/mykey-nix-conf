@@ -1,0 +1,57 @@
+/* Rose Pine Vencord theme */
+.theme-dark {
+  --background-primary: #191724;
+  --background-secondary: #1f1d2e;
+  --background-secondary-alt: #26233a;
+  --background-tertiary: #1f1d2e;
+  --background-floating: #1f1d2e;
+  --channeltextarea-background: #26233a;
+  --background-modifier-selected: #403d52;
+  --background-modifier-hover: #363249;
+  --background-modifier-active: #4c4766;
+  --text-normal: #e0def4;
+  --text-muted: #908caa;
+  --text-link: #c4a7e7;
+  --interactive-normal: #908caa;
+  --interactive-hover: #e0def4;
+  --interactive-active: #ebbcba;
+  --interactive-muted: #6e6a86;
+  --header-primary: #e0def4;
+  --header-secondary: #908caa;
+  --channels-default: #908caa;
+  --brand-experiment: #c4a7e7;
+  --brand-experiment-560: #b897d9;
+  --info-positive-text: #9ccfd8;
+  --info-warning-text: #f6c177;
+  --info-danger-text: #eb6f92;
+  --status-positive-text: #9ccfd8;
+  --button-positive-background: #31748f;
+  --button-positive-background-hover: #3e8fb0;
+  --button-positive-background-active: #286377;
+  --button-danger-background: #b4637a;
+  --button-danger-background-hover: #d17d96;
+  --button-danger-background-active: #914456;
+  --scrollbar-auto-thumb: #6e6a86;
+  --scrollbar-auto-track: #26233a;
+}
+
+.theme-light {
+  --background-primary: #faf4ed;
+  --background-secondary: #fffaf3;
+  --background-secondary-alt: #f2e9e1;
+  --background-tertiary: #f2e9e1;
+  --background-floating: #f2e9e1;
+  --channeltextarea-background: #fffaf3;
+  --background-modifier-selected: #dfdad9;
+  --background-modifier-hover: #f2e9e1;
+  --background-modifier-active: #cecacd;
+  --text-normal: #575279;
+  --text-muted: #797593;
+  --interactive-normal: #9893a5;
+  --interactive-hover: #575279;
+  --interactive-active: #b4637a;
+  --interactive-muted: #9893a5;
+  --header-primary: #575279;
+  --header-secondary: #797593;
+  --channels-default: #9893a5;
+}

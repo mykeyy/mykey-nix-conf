@@ -22,8 +22,8 @@
           name = "JetBrainsMono Nerd Font";
         };
         emoji = {
-          package = pkgs.noto-fonts-color-emoji;
-          name = "Noto Color Emoji";
+          package = pkgs.apple-color-emoji;
+          name = "Apple Color Emoji";
         };
       };
     };

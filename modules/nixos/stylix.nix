@@ -22,8 +22,8 @@
           name = "JetBrainsMono Nerd Font";
         };
         emoji = {
-          package = pkgs.apple-color-emoji;
-          name = "Apple Color Emoji";
+          package = pkgs.twitter-color-emoji;
+          name = "Twitter Color Emoji";
         };
       };
     };

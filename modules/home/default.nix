@@ -12,7 +12,6 @@
       enable = true;
       settings = {
         font-size = 11;
-        theme = "rose-pine";
       };
     };
 

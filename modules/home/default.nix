@@ -151,6 +151,8 @@
       swaybg
       swaylock
       hyprshot
+      spotify
+      spicetify-cli
     ];
 
     wayland.windowManager.sway = {

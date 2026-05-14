@@ -15,7 +15,6 @@
         theme = "rose-pine";
       };
     };
-    };
 
     programs.nushell = {
       enable = true;

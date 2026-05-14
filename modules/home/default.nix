@@ -155,6 +155,7 @@
       spotify
       spicetify-cli
       nerd-fonts.jetbrains-mono
+      eww
     ];
 
     wayland.windowManager.sway = {
@@ -163,6 +164,7 @@
         modifier = "Mod4";
         terminal = "ghostty";
         menu = "${pkgs.tofi}/bin/tofi-drun --drun-launch=true";
+        output."*".bg = "${../../wallpapers/wallpaper.jpg} fill";
         gaps = {
           inner = 10;
           outer = 10;
@@ -171,6 +173,9 @@
           border = 3;
           titlebar = false;
         };
+        startup = [
+          { command = "systemctl --user restart xdg-desktop-portal-wlr"; }
+        ];
         keybindings = {
           "Mod1+Return" = "fullscreen";
           "Mod1+q" = "kill";
@@ -186,19 +191,11 @@
           "Mod1+3" = "workspace number 3";
           "Mod1+4" = "workspace number 4";
           "Mod1+5" = "workspace number 5";
-          "Mod1+6" = "workspace number 6";
-          "Mod1+7" = "workspace number 7";
-          "Mod1+8" = "workspace number 8";
-          "Mod1+9" = "workspace number 9";
           "Mod1+Shift+1" = "move container to workspace number 1";
           "Mod1+Shift+2" = "move container to workspace number 2";
           "Mod1+Shift+3" = "move container to workspace number 3";
           "Mod1+Shift+4" = "move container to workspace number 4";
           "Mod1+Shift+5" = "move container to workspace number 5";
-          "Mod1+Shift+6" = "move container to workspace number 6";
-          "Mod1+Shift+7" = "move container to workspace number 7";
-          "Mod1+Shift+8" = "move container to workspace number 8";
-          "Mod1+Shift+9" = "move container to workspace number 9";
         };
       };
     };

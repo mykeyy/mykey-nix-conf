@@ -166,6 +166,7 @@
         corner_radius 8
         blur enable
         blur_xray disable
+        blur_passes 1
         shadows enable
         shadows_on_csd enable
         layer_effects "swaybar" blur enable; corner_radius 8

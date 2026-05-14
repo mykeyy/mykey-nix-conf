@@ -96,6 +96,12 @@
       };
     };
 
+    xdg.configFile = {
+      "kglobalshortcutsrc".source = ../../configs/kglobalshortcutsrc;
+      "kwinrc".source = ../../configs/kwinrc;
+      "kwinrulesrc".source = ../../configs/kwinrulesrc;
+    };
+
     home.packages = with pkgs; [
       bat
       ripgrep

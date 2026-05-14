@@ -6,11 +6,7 @@
       enable = true;
       autoEnable = true;
       polarity = "dark";
-      image = pkgs.runCommand "wallpaper.png" {
-        nativeBuildInputs = [ pkgs.imagemagick ];
-      } ''
-        convert -size 1920x1080 xc:'#191724' $out
-      '';
+      image = ../../wallpapers/wallpaper.jpg;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
       fonts = {
         serif = {

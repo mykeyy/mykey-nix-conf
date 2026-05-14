@@ -160,6 +160,13 @@
 
     wayland.windowManager.sway = {
       enable = true;
+      extraConfig = ''
+        workspace 1 output *
+        workspace 2 output *
+        workspace 3 output *
+        workspace 4 output *
+        workspace 5 output *
+      '';
       config = {
         modifier = "Mod4";
         terminal = "ghostty";

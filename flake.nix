@@ -1,4 +1,8 @@
 {
+  nixConfig = {
+    extra-experimental-features = [ "nix-command" "flakes" ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -30,7 +34,10 @@
 
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ (inputs.import-tree ./modules) ];
+      imports = [
+        (inputs.import-tree ./configurations)
+        (inputs.import-tree ./modules)
+      ];
       _module.args.rootPath = ./.;
     };
 }

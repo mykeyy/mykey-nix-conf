@@ -18,6 +18,7 @@
         font-size = 14;
         theme = "rose-pine";
         background-opacity = 0.95;
+        command = "${pkgs.nushell}/bin/nu";
       };
     };
 

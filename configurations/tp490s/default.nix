@@ -1,6 +1,6 @@
 { config, inputs, ... }:
 {
-  configurations.nixos_x86.module = {
+  configurations.tp490s.module = {
     imports = with config.flake.modules.nixos; [
       ./hardware.nix
       base
@@ -15,7 +15,7 @@
       stylix
     ];
 
-    networking.hostName = "nixos";
+    networking.hostName = "tp490s";
     time.timeZone = "Asia/Manila";
     i18n.defaultLocale = "en_PH.UTF-8";
 

@@ -160,7 +160,15 @@
 
     wayland.windowManager.sway = {
       enable = true;
+      package = pkgs.swayfx;
+      checkConfig = false;
       extraConfig = ''
+        corner_radius 8
+        blur enable
+        blur_xray disable
+        shadows enable
+        shadows_on_csd enable
+        layer_effects "swaybar" blur enable; corner_radius 8
         workspace 1 output *
         workspace 2 output *
         workspace 3 output *

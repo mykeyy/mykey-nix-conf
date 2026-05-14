@@ -36,60 +36,11 @@
       '';
     };
 
-    programs.oh-my-posh.enable = false;
-
-    programs.ghostty = {
-      enable = true;
-      settings = {
-        font-size = 16;
-        theme = "Rose Pine";
-        background-opacity = 0.85;
-        command = "${pkgs.nushell}/bin/nu";
-        keybind = [
-          "alt+1=unbind" "alt+2=unbind" "alt+3=unbind"
-          "alt+4=unbind" "alt+5=unbind" "alt+6=unbind"
-          "alt+7=unbind" "alt+8=unbind" "alt+9=unbind"
-        ];
-      };
-    };
-
-    programs.starship.enable = false;
-
-    programs.fastfetch = {
-      enable = true;
-      settings = {
-        logo.source = "nixos";
-        display = {
-          size.binaryPrefix = "si";
-          color = "blue";
-          separator = "  ";
-        };
-        modules = [
-          { type = "os"; key = "os   "; keyColor = "blue"; format = "{name} {version}"; }
-          { type = "kernel"; key = "krnl "; keyColor = "blue"; }
-          { type = "packages"; key = "pkgs "; keyColor = "blue"; }
-          { type = "shell"; key = "shell"; keyColor = "blue"; }
-          "break"
-          { type = "wm"; key = "wm   "; keyColor = "red"; }
-          { type = "terminal"; key = "term "; keyColor = "red"; }
-          { type = "font"; key = "font "; keyColor = "red"; }
-          { type = "icons"; key = "icon "; keyColor = "red"; }
-          "break"
-          { type = "cpu"; key = "cpu  "; keyColor = "green"; }
-          { type = "memory"; key = "mem  "; keyColor = "green"; }
-          { type = "gpu"; key = "gpu  "; keyColor = "green"; }
-          { type = "disk"; key = "disk "; keyColor = "green"; }
-          "break"
-          { type = "localip"; key = "ip   "; keyColor = "yellow"; }
-        ];
-      };
-    };
-
     programs.carapace.enable = true;
     programs.zoxide = {
       enable = true;
       options = [ "--cmd cd" ];
-      enableNushellIntegration = false;
+      package = pkgs.zoxide;
     };
     programs.bat.enable = true;
     programs.ripgrep.enable = true;

@@ -1,4 +1,5 @@
 /wallpapers/*
 !/wallpapers/.gitkeep
+!/wallpapers/wallpaper.jpg
 result/
 *.lock~

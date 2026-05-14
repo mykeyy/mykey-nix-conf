@@ -2,7 +2,7 @@
 {
   configurations.tp490s.module = {
     imports = with config.flake.modules.nixos; [
-      ./hardware.nix
+      ./_hardware.nix
       base
       greetd
       plasma

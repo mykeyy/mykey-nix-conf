@@ -1,6 +1,6 @@
 { config, inputs, rootPath, ... }:
 {
-  flake.modules.homeManager.base = { pkgs, ... }: {
+  flake.modules.homeManager.base = { pkgs, lib, ... }: {
     imports = [ inputs.nixcord.homeModules.nixcord ];
 
     home.username = "mykey";
@@ -458,11 +458,12 @@
       spotify
       spicetify-cli
       nerd-fonts.jetbrains-mono
-      eww
-      vivid
-      playerctl
-       bluez
-       libnotify
+       eww
+       vivid
+       playerctl
+        bluez
+        libnotify
+        jq
        xclip
        (pkgs.writeShellScriptBin "screenshot" ''
          mkdir -p "$HOME/Pictures/screenshots"
@@ -472,31 +473,41 @@
          echo -n "$FILE" | ${pkgs.wl-clipboard}/bin/wl-copy --primary
          notify-send "Screenshot saved" "$FILE"
        '')
-       (pkgs.writeShellScriptBin "power-menu" ''
-        ACTION=$(printf "Lock\nLogout\nSuspend\nRestart\nShutdown\n" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
+        (pkgs.writeShellScriptBin "power-menu" ''
+         ACTION=$(printf "Lock\nLogout\nSuspend\nRestart\nShutdown\n" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
 
-        case "$ACTION" in
-          "Lock")
-            ${pkgs.swaylock}/bin/swaylock
-            ;;
-          "Logout")
-            CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
-            [ "$CONFIRM" = "Yes" ] && swaymsg exit
-            ;;
-          "Suspend")
-            CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
-            [ "$CONFIRM" = "Yes" ] && systemctl suspend
-            ;;
-          "Restart")
-            CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
-            [ "$CONFIRM" = "Yes" ] && systemctl reboot
-            ;;
-          "Shutdown")
-            CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
-            [ "$CONFIRM" = "Yes" ] && systemctl poweroff
-            ;;
-        esac
-      '')
+         logout() {
+           if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+             hyprctl dispatch exit
+           elif [ -n "$SWAYSOCK" ]; then
+             swaymsg exit
+           else
+             loginctl terminate-session "$XDG_SESSION_ID"
+           fi
+         }
+
+         case "$ACTION" in
+           "Lock")
+             ${pkgs.swaylock}/bin/swaylock
+             ;;
+           "Logout")
+             CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
+             [ "$CONFIRM" = "Yes" ] && logout
+             ;;
+           "Suspend")
+             CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
+             [ "$CONFIRM" = "Yes" ] && systemctl suspend
+             ;;
+           "Restart")
+             CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
+             [ "$CONFIRM" = "Yes" ] && systemctl reboot
+             ;;
+           "Shutdown")
+             CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
+             [ "$CONFIRM" = "Yes" ] && systemctl poweroff
+             ;;
+         esac
+       '')
     ];
 
     wayland.windowManager.sway = {
@@ -561,6 +572,102 @@
           "Mod1+Shift+4" = "move container to workspace number 4";
           "Mod1+Shift+5" = "move container to workspace number 5";
         };
+      };
+    };
+
+    wayland.windowManager.hyprland = {
+      enable = true;
+      configType = "hyprlang";
+      settings = {
+        "$mod" = "SUPER";
+        "$alt" = "ALT";
+
+        monitor = ",preferred,auto,auto";
+
+        general = {
+          gaps_in = 12;
+          gaps_out = 10;
+          border_size = 3;
+          layout = "dwindle";
+        };
+
+        decoration = {
+          rounding = 8;
+          blur = {
+            enabled = true;
+            size = 3;
+            passes = 1;
+          };
+          shadow = {
+            enabled = true;
+            range = 4;
+            render_power = 3;
+          };
+        };
+
+        animations = {
+          enabled = true;
+          bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+          animation = [
+            "windows, 1, 7, myBezier"
+            "windowsOut, 1, 7, default, popin 80%"
+            "border, 1, 10, default"
+            "fade, 1, 7, default"
+            "workspaces, 1, 6, default"
+          ];
+        };
+
+        dwindle = {
+          pseudotile = true;
+          preserve_split = true;
+        };
+
+        input = {
+          kb_layout = "us";
+          follow_mouse = 1;
+          touchpad.natural_scroll = false;
+        };
+
+        misc = {
+          force_default_wallpaper = 0;
+          disable_hyprland_logo = true;
+        };
+
+        exec-once = [
+          "swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill"
+          "eww open bar"
+          "systemctl --user restart xdg-desktop-portal-hyprland"
+        ];
+
+        bind = [
+          "$mod, Return, exec, ghostty"
+          "$mod SHIFT, E, exec, power-menu"
+          "$mod, L, exec, swaylock"
+          "$mod SHIFT, Q, killactive"
+          "$alt, Space, exec, ${pkgs.tofi}/bin/tofi-drun --drun-launch=true"
+          "$alt, S, exec, screenshot"
+          ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.5"
+          ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          "$alt, 1, workspace, 1"
+          "$alt, 2, workspace, 2"
+          "$alt, 3, workspace, 3"
+          "$alt, 4, workspace, 4"
+          "$alt, 5, workspace, 5"
+          "$alt SHIFT, 1, movetoworkspace, 1"
+          "$alt SHIFT, 2, movetoworkspace, 2"
+          "$alt SHIFT, 3, movetoworkspace, 3"
+          "$alt SHIFT, 4, movetoworkspace, 4"
+          "$alt SHIFT, 5, movetoworkspace, 5"
+          "$mod, mouse:272, movewindow"
+          "$mod, mouse:273, resizewindow"
+        ];
+
+        windowrulev2 = [
+          "float,class:^(pavucontrol)$"
+          "float,class:^(wofi)$"
+          "float,class:^(tofi)$"
+        ];
       };
     };
   };

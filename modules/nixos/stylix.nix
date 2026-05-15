@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.stylix = { inputs, pkgs, ... }: {
+  flake.modules.nixos.stylix = { inputs, pkgs, lib, ... }: {
     imports = [ inputs.stylix.nixosModules.stylix ];
 
     stylix = {
@@ -8,6 +8,8 @@
       polarity = "dark";
       image = ../../wallpapers/wallpaper.jpg;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+      targets.regreet.enable = false;
+      targets.qt.platform = lib.mkForce "qtct";
       fonts = {
         serif = {
           package = pkgs.dejavu_fonts;

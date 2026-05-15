@@ -12,9 +12,7 @@
     (metric :label "   ${round(EWW_RAM.used_mem_perc, 0)}%"
             :value {EWW_RAM.used_mem_perc}
             :onchange "")
-    (metric :label "${battery_icon} ${battery_pct}%"
-            :value battery_pct
-            :onchange "")
+    (box :class "label ${battery_state}" "${battery_icon}   ${battery_pct}%")
     (box :class "time" time)))
 
 (defwidget workspaces []
@@ -23,11 +21,12 @@
        :space-evenly true
        :halign "start"
        :spacing 10
-    (button :onclick "swaymsg workspace number 1" 1)
-    (button :onclick "swaymsg workspace number 2" 2)
-    (button :onclick "swaymsg workspace number 3" 3)
-    (button :onclick "swaymsg workspace number 4" 4)
-    (button :onclick "swaymsg workspace number 5" 5)))
+    (box :class "nix-logo" "󱄅")
+    (button :onclick "swaymsg workspace number 1" :class {active_ws == "1" ? "active" : ""} 1)
+    (button :onclick "swaymsg workspace number 2" :class {active_ws == "2" ? "active" : ""} 2)
+    (button :onclick "swaymsg workspace number 3" :class {active_ws == "3" ? "active" : ""} 3)
+    (button :onclick "swaymsg workspace number 4" :class {active_ws == "4" ? "active" : ""} 4)
+    (button :onclick "swaymsg workspace number 5" :class {active_ws == "5" ? "active" : ""} 5)))
 
 (defwidget music []
   (box :class "music"
@@ -51,11 +50,15 @@
 
 (defpoll battery_pct :interval "10s"
   :initial "100"
-  "cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo 100")
+  "now=$(cat /sys/class/power_supply/BAT0/energy_now 2>/dev/null || echo 1); full=$(cat /sys/class/power_supply/BAT0/energy_full 2>/dev/null || echo 1); pct=$(awk \"BEGIN {printf \\\"%.2f\\\", ($now/$full)*100}\"); if echo \"$pct\" | grep -q '\\.00$'; then echo \"$pct\" | cut -d. -f1; else echo \"$pct\"; fi")
 
 (defpoll battery_icon :interval "10s"
   :initial ""
   "bat=$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo 100); sta=$(cat /sys/class/power_supply/BAT0/status 2>/dev/null || echo Unknown); if [ \"$sta\" = 'Charging' ]; then echo ''; elif [ $bat -le 20 ]; then echo ''; elif [ $bat -le 40 ]; then echo ''; elif [ $bat -le 60 ]; then echo ''; elif [ $bat -le 80 ]; then echo ''; else echo ''; fi")
+
+(defpoll battery_state :interval "10s"
+  :initial "battery-good"
+  "bat=$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo 100); sta=$(cat /sys/class/power_supply/BAT0/status 2>/dev/null || echo Unknown); if [ \"$sta\" = 'Charging' ]; then if [ $bat -eq 100 ]; then echo 'battery-full'; else echo 'battery-charging'; fi; elif [ $bat -le 20 ]; then echo 'battery-critical'; elif [ $bat -le 50 ]; then echo 'battery-low'; else echo 'battery-good'; fi")
 
 (deflisten music :initial ""
   "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
@@ -64,6 +67,9 @@
   :interval "1s"
   :initial "50"
   "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ print int($2 * 100) }'")
+
+(deflisten active_ws :initial "1"
+  "swaymsg -m -t subscribe '[\"workspace\"]' | jq --unbuffered -r '.current.name // empty'")
 
 (defpoll time :interval "1s"
   "LC_TIME=C date '+%I:%M %p'")

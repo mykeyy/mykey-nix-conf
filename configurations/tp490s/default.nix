@@ -7,6 +7,7 @@
       greetd
       plasma
       swayfx
+      hyprland
       audio
       network
       fingerprint

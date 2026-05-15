@@ -1,27 +1,81 @@
-(defwindow bar
-  :monitor 0
-  :geometry (geometry :x "0" :y "0" :width "100%" :height "36px" :anchor "top center")
-  :stacking "fg"
-  :windowtype "dock"
-  (bar))
-
 (defwidget bar []
-  (box :class "bar" :spacing 8 :space-evenly false
+  (centerbox :orientation "h"
     (workspaces)
-    (box :halign "center" :spacing 12
-      (clock))
-    (box :halign "end" :spacing 8
-      (battery))))
+    (music)
+    (sidestuff)))
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+    (metric :label "${(volume == "0") ? "   " : ((volume < "75") ? "  " : "  ")} ${volume}%"
+            :value volume
+            :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
+    (metric :label "   ${round(EWW_RAM.used_mem_perc, 0)}%"
+            :value {EWW_RAM.used_mem_perc}
+            :onchange "")
+    (metric :label "${battery_icon} ${battery_pct}%"
+            :value battery_pct
+            :onchange "")
+    (box :class "time" time)))
 
 (defwidget workspaces []
-  (box :class "workspaces" :spacing 4
-    (for ws in (workspaces)
-      (button :class (strf "ws ${ws.active ? "active" : "inactive"}") :onclick (strf "swaymsg workspace number ${ws.num}")
-        (literal (strf " ${ws.num} "))))))
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :onclick "swaymsg workspace number 1" 1)
+    (button :onclick "swaymsg workspace number 2" 2)
+    (button :onclick "swaymsg workspace number 3" 3)
+    (button :onclick "swaymsg workspace number 4" 4)
+    (button :onclick "swaymsg workspace number 5" 5)))
 
-(defwidget clock []
-  (label :class "clock" :text (strftime "%H:%M")))
+(defwidget music []
+  (box :class "music"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    {music != "" ? "${music}" : ""}))
 
-(defwidget battery []
-  (box :spacing 4
-    (label :class "battery" :text (strf "󰁹 ${round(battery.percentage, 0)}%"))))
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+
+
+(defpoll battery_pct :interval "10s"
+  :initial "100"
+  "cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo 100")
+
+(defpoll battery_icon :interval "10s"
+  :initial ""
+  "bat=$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo 100); sta=$(cat /sys/class/power_supply/BAT0/status 2>/dev/null || echo Unknown); if [ \"$sta\" = 'Charging' ]; then echo ''; elif [ $bat -le 20 ]; then echo ''; elif [ $bat -le 40 ]; then echo ''; elif [ $bat -le 60 ]; then echo ''; elif [ $bat -le 80 ]; then echo ''; else echo ''; fi")
+
+(deflisten music :initial ""
+  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+
+(defpoll volume
+  :interval "1s"
+  :initial "50"
+  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ print int($2 * 100) }'")
+
+(defpoll time :interval "1s"
+  "LC_TIME=C date '+%I:%M %p'")
+
+(defwindow bar
+  :windowtype "desktop"
+  :stacking "fg"
+  :exclusive true
+  :focusable false
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "20px"
+                      :anchor "top center")
+  (bar))

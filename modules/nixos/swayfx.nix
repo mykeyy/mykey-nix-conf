@@ -4,5 +4,7 @@
       enable = true;
       package = pkgs.swayfx;
     };
+
+    services.libinput.enable = true;
   };
 }

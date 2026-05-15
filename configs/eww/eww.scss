@@ -1,35 +1,63 @@
-* { all: unset; }
+* {
+  all: unset;
+}
 
 .bar {
   background-color: #191724;
-  padding: 2px 12px;
+  color: #e0def4;
+  padding: 10px;
 }
 
-.workspaces .ws {
-  padding: 0 6px;
-  border-radius: 4px;
+.sidestuff slider {
+  all: unset;
+  color: #ffd5cd;
+}
+
+.metric scale trough highlight {
+  all: unset;
+  background-color: #ebbcba;
+  color: #000000;
+  border-radius: 10px;
+}
+
+.metric scale trough {
+  all: unset;
+  background-color: #2a273f;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.label-ram {
+  font-size: large;
+}
+
+.workspaces button:hover {
+  color: #D35D6E;
+}
+
+.workspaces button {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  padding: 0 8px;
+}
+
+.music {
   font-family: "JetBrainsMono Nerd Font";
   font-size: 12px;
 }
 
-.workspaces .active {
-  background-color: #c4a7e7;
-  color: #191724;
+.label {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  padding-right: 8px;
 }
 
-.workspaces .inactive {
-  background-color: #26233a;
-  color: #908caa;
-}
-
-.clock {
+.time {
   font-family: "JetBrainsMono Nerd Font";
   font-size: 12px;
   color: #e0def4;
-}
-
-.battery {
-  font-family: "JetBrainsMono Nerd Font";
-  font-size: 12px;
-  color: #e0def4;
+  padding: 0 8px;
 }

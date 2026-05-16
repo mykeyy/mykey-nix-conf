@@ -10,7 +10,6 @@
       hyprland
       audio
       network
-      fingerprint
       printing
       packages
       stylix

@@ -31,12 +31,13 @@
     libnotify
       jq
       xclip
-      (pkgs.writeShellScriptBin "power-cycle" (builtins.readFile ../../configs/scripts/power-cycle.sh))
-      noto-fonts
-      kanshi
-      wdisplays
-      easyeffects
-      tailscale
+      (pkgs.writeShellScriptBin "power-cycle" ''
+        case $(powerprofilesctl get) in
+          performance) powerprofilesctl set balanced ;;
+          balanced)    powerprofilesctl set power-saver ;;
+          power-saver) powerprofilesctl set performance ;;
+        esac
+      '')
     (pkgs.writeShellScriptBin "screenshot" ''
       mkdir -p "$HOME/Pictures/screenshots"
       FILE="$HOME/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"

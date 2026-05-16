@@ -1,9 +1,7 @@
 (defwidget bar []
   (centerbox :orientation "h"
     (workspaces)
-    (box :orientation "h" :space-evenly false :halign "center" :spacing 15
-      (power_profiles)
-      (music))
+    (music)
     (sidestuff)))
 
 (defwidget sidestuff []
@@ -15,6 +13,7 @@
             :value {EWW_RAM.used_mem_perc}
             :onchange "")
     (box :class "label ${battery_state}" "${battery_icon}   ${battery_pct}%")
+    (power_profiles)
     (box :class "time" time)))
 
 (defwidget workspaces []
@@ -48,8 +47,6 @@
            :value value
            :onchange onchange)))
 
-
-
 (defpoll battery_pct :interval "10s"
   :initial "100"
   "now=$(cat /sys/class/power_supply/BAT0/energy_now 2>/dev/null || echo 1); full=$(cat /sys/class/power_supply/BAT0/energy_full 2>/dev/null || echo 1); pct=$(awk \"BEGIN {printf \\\"%.2f\\\", ($now/$full)*100}\"); if echo \"$pct\" | grep -q '\\.00$'; then echo \"$pct\" | cut -d. -f1; else echo \"$pct\"; fi")
@@ -65,9 +62,7 @@
 (deflisten music :initial ""
   "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
 
-(defpoll volume
-  :interval "1s"
-  :initial "50"
+(defpoll volume :interval "1s" :initial "50"
   "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ print int($2 * 100) }'")
 
 (deflisten active_ws :initial "1"
@@ -77,11 +72,11 @@
   "LC_TIME=C date '+%I:%M %p'")
 
 (defwindow bar
+  :monitor 0
   :windowtype "dock"
   :stacking "fg"
   :exclusive true
   :focusable false
-  :monitor 0
   :geometry (geometry :x "0%"
                       :y "0%"
                       :width "100%"
@@ -94,5 +89,5 @@
           :onclick "power-cycle"
     {power_profile == "performance" ? "PERF" : (power_profile == "balanced" ? "BAL" : "SAV")}))
 
-(defpoll power_profile :interval "5s" :initial "balanced"
+(defpoll power_profile :interval "10s" :initial "balanced"
   "powerprofilesctl get 2>/dev/null || echo balanced")

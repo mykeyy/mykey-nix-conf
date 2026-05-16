@@ -10,7 +10,6 @@
       hyprland
       audio
       network
-      power
       printing
       packages
       stylix

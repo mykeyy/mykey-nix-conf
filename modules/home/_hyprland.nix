@@ -59,7 +59,7 @@
 
       exec-once = [
         "swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill"
-        "eww open bar0"
+        "eww open bar"
         "systemctl --user restart xdg-desktop-portal-hyprland"
       ];
 

@@ -17,7 +17,7 @@
       workspace 4 output *
       workspace 5 output *
       exec swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill
-      exec eww open bar0
+      exec eww open bar
       exec systemctl --user restart xdg-desktop-portal-wlr
     '';
     config = {

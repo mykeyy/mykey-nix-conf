@@ -92,6 +92,7 @@
 
           "$mod SHIFT, TAB, togglefloating"
 
+          "$mod, P, exec, wdisplays"
           "$alt, Space, exec, ${pkgs.tofi}/bin/tofi-drun --drun-launch=true"
           "$alt, S, exec, screenshot"
 

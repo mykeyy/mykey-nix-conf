@@ -1,6 +1,6 @@
 { config, inputs, rootPath, ... }:
 {
-  flake.modules.homeManager.base = { pkgs, lib, ... }: {
+  flake.modules.homeManager.base = { pkgs, lib, config, ... }: {
     imports = [
       inputs.nixcord.homeModules.nixcord
       ./_core.nix
@@ -18,6 +18,8 @@
       ./_hyprland.nix
       ./_hyprpaper.nix
     ];
+
+    gtk.gtk4.theme = config.gtk.theme;
 
     programs.nixcord = {
       enable = true;

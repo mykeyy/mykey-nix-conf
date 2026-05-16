@@ -46,6 +46,7 @@
         "Mod4+l" = "exec ${pkgs.swaylock}/bin/swaylock";
         "Mod4+Return" = "exec ghostty";
         "Mod1+Space" = "exec ${pkgs.tofi}/bin/tofi-drun --drun-launch=true";
+        "Mod4+p" = "exec wdisplays";
         "Mod1+s" = "exec screenshot";
         "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.5";
         "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";

@@ -31,6 +31,7 @@
     libnotify
       jq
       xclip
+      (pkgs.writeShellScriptBin "power-cycle" (builtins.readFile ../../configs/scripts/power-cycle.sh))
       noto-fonts
       kanshi
       wdisplays

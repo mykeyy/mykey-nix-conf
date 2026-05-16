@@ -1,7 +1,9 @@
 (defwidget bar []
   (centerbox :orientation "h"
     (workspaces)
-    (music)
+    (box :orientation "h" :space-evenly false :halign "center" :spacing 15
+      (power_profiles)
+      (music))
     (sidestuff)))
 
 (defwidget sidestuff []
@@ -86,3 +88,11 @@
                       :height "20px"
                       :anchor "top center")
   (bar))
+
+(defwidget power_profiles []
+  (button :class "power-profile pp-${power_profile}"
+          :onclick "power-cycle"
+    {power_profile == "performance" ? "PERF" : (power_profile == "balanced" ? "BAL" : "SAV")}))
+
+(defpoll power_profile :interval "5s" :initial "balanced"
+  "powerprofilesctl get 2>/dev/null || echo balanced")

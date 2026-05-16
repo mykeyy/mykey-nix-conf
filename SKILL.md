@@ -1,36 +1,124 @@
-# mykey-nix-conf
+# mykey-nix-conf 🌸
 
-mykey NixOS flake — T490s, greetd+ReGreet, KDE Plasma + SwayFX, Vesktop+nixcord.
+> T490s · greetd+ReGreet · Plasma 6 · SwayFX · Hyprland (hy3) · Vesktop+nixcord  
+> *Dendritic flake-parts with rose-pine aesthetics*
 
-## Wiring
+---
 
-flake-parts + import-tree — every `.nix` under `modules/` auto-included.
-`configurations/<name>/` → `nixosConfigurations.<name>`.
+## Inspiration
+
+Inspired by and borrowing patterns from:
+
+| Repo | Pattern |
+|------|---------|
+| [**invra/inc**](https://github.com/invra/inc) | Flat leaf modules, `facter.json`, reStructuredText docs |
+| [**mightyiam/infra**](https://github.com/mightyiam/infra) | Dendritic pattern origin, import-tree, `_` sub-modules |
+| [**denful/import-tree**](https://github.com/denful/import-tree) | Auto-import engine, recursive `.nix` discovery |
+
+---
 
 ## Structure
 
-configurations/  per-machine hardware, hostname, locale, stateVersion
-modules/configurations.nix  glue: reads configurations/ → flake outputs
-modules/nixos/  system modules (boot, greetd, plasma, swayfx, audio, network, stylix)
-modules/home/  Home Manager modules
+```
+├── configurations/tp490s/    one host per folder
+│   ├── default.nix           imports leaf modules
+│   └── _hardware.nix         kernel, filesystems, swap
 
-## Module policy
+├── modules/
+│   ├── configurations.nix     glue → nixosConfigurations
+│   ├── nixos/                 system modules (one concern per file)
+│   │   ├── greetd.nix         regreet with rose-pine
+│   │   ├── stylix.nix         theming engine
+│   │   ├── power.nix          power profiles daemon
+│   │   └── ...                swayfx, hyprland, plasma, etc.
+│   ├── home/                  home-manager modules
+│   │   ├── default.nix        imports all _* sub-modules
+│   │   ├── _shell.nix         nushell · starship · fastfetch
+│   │   ├── _bar.nix           eww status bar
+│   │   ├── _hyprland.nix      hy3 tabbed layout
+│   │   ├── _sway.nix          swayfx with blur + shadows
+│   │   └── ...                one file = one concern
+│   └── docs/
+│       └── README.rst         reStructuredText documentation
+```
 
-One concern per file.
-`flake.modules.nixos.<name>` — system module (imported by host)
-`flake.modules.homeManager.base` — user module
+### Why `_` prefixed files?
 
-## Adding
+> *"Nix files prefixed with an underscore are ignored"*  
+> — [mightyiam/infra](https://github.com/mightyiam/infra)
 
-New machine     → `mkdir configurations/<name>/` + `default.nix` + `hardware.nix`
-New system svc  → `modules/nixos/<name>.nix` (auto-included, import in host)
-New user pkg    → add to `modules/home/default.nix`
-New nixcord plugin → edit nixcord config in `modules/home/default.nix`
+`import-tree` auto-loads ALL `.nix` files as flake modules. Home-manager sub-modules
+need `pkgs`/`config` which aren't available in the flake context. The `_` prefix
+tells import-tree: *"skip this file, it's imported manually by `default.nix`."*
+
+---
+
+## Sessions
+
+| Session | Keybind highlight |
+|---------|-------------------|
+| **SwayFX** | `Mod4+Shift+E` power menu · `Mod4+L` lock · `Mod4+P` display settings |
+| **Hyprland** | hy3 layout · `Mod4+S/V` make group · `Mod4+HJKL` navigate |
+| **Plasma 6** | Full KDE desktop with rose-pine Qt theme |
+
+---
+
+## Keybinds
+
+| Key | Action |
+|-----|--------|
+| `Mod4+Shift+E` | Power menu (lock, logout, restart, shutdown) |
+| `Mod4+L` | Lock screen |
+| `Mod4+P` | Display settings (wdisplays) |
+| `Mod4+Return` | Ghostty terminal |
+| `Alt+Space` | Tofi app launcher |
+| `Alt+S` | Screenshot (region) |
+| `Alt+1-5` | Switch workspace |
+| `Alt+Shift+1-5` | Move window to workspace |
+
+---
+
+## Packages
+
+| Category | What |
+|----------|------|
+| **Shell** | nushell · starship · carapace · zoxide · fastfetch |
+| **Terminal** | ghostty (rose-pine) |
+| **Bar** | eww (workspaces, music, volume, RAM, battery, clock, power profile) |
+| **Launcher** | tofi |
+| **Browser** | zen-browser |
+| **Chat** | vesktop + nixcord (Vencord mods) |
+| **Music** | spotify + spicetify-cli + spotify-player (TUI) |
+| **Editor** | helix · vscodium |
+| **Gaming** | prismlauncher · Moonlight (remote from Windows) |
+| **Power** | power-profiles-daemon · `PERF`/`BAL`/`SAV` eww widget |
+| **Audio** | easyeffects (mic EQ) · pipewire |
+| **Clipboard** | cliphist · wl-clipboard sync |
+| **Fonts** | JetBrainsMono Nerd Font · noto-fonts (CJK fallback) |
+
+---
 
 ## Rebuild
 
-sudo nixos-rebuild switch --flake .#tp490s
+```bash
+# Standard
+sudo nixos-rebuild switch --flake ~/.nix#tp490s
+
+# With nushell alias
+rebuild
+rebuild --update   # update flake inputs first
+```
+
+---
 
 ## Inputs
 
-nixpkgs(unstable) home-manager nixcord stylix flake-parts import-tree
+| Input | Purpose |
+|-------|---------|
+| `nixpkgs/unstable` | Package set |
+| `home-manager` | User environment |
+| `nixcord` | Discord + Vencord |
+| `stylix` | Rose-pine theming |
+| `flake-parts` | Flake framework |
+| `import-tree` | Dendritic auto-import |
+| `zen-browser` | Web browser

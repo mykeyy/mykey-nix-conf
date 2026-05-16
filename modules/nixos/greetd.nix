@@ -6,13 +6,20 @@
         default_session = {
           command = "${pkgs.writeShellScriptBin "regreet-session" ''
             export XDG_DATA_DIRS="/run/current-system/sw/share:''${XDG_DATA_DIRS}"
-            exec ${pkgs.cage}/bin/cage -s -mlast -- ${pkgs.regreet}/bin/regreet
+            exec ${pkgs.dbus}/bin/dbus-run-session -- ${pkgs.cage}/bin/cage -s -mlast -- ${pkgs.regreet}/bin/regreet
           ''}/bin/regreet-session";
           user = "greeter";
         };
       };
     };
+
+    systemd.services.greetd = {
+      after = [ "accounts-daemon.service" ];
+      requires = [ "accounts-daemon.service" ];
+    };
+
     programs.regreet.enable = true;
     environment.systemPackages = [ pkgs.cage ];
+    services.accounts-daemon.enable = true;
   };
 }

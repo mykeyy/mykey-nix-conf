@@ -14,6 +14,7 @@
       ./_apps.nix
       ./_clipboard.nix
       ./_spotify.nix
+      ./_gaming.nix
       ./_sway.nix
       ./_hyprland.nix
       ./_hyprpaper.nix

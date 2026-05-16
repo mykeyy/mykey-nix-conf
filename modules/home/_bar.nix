@@ -21,7 +21,7 @@
       .label.battery-good { color: #9ccfd8; }
       .label.battery-charging { color: #e0def4; }
       .label.battery-full { color: #e0def4; }
-      .power-profile { font-weight: bold; padding: 0 8px; }
+      .power-profile { font-family: "JetBrainsMono Nerd Font"; font-size: 12px; font-weight: bold; padding: 0 8px; }
       .pp-performance { color: #eb6f92; }
       .pp-balanced { color: #e0def4; }
       .pp-power-saver { color: #f6c177; }

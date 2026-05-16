@@ -3,7 +3,7 @@
 
   systemd.user.services.wl-clipboard-sync = {
     Unit = {
-      Description = "Sync Wayland clipboard and primary selection";
+      Description = "Keep clipboard in sync (selection → clipboard)";
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
     };

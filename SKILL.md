@@ -5,6 +5,28 @@
 
 ---
 
+## About
+
+This is my personal NixOS configuration for my laptop — the one I use every day.
+It started as a much simpler config and gradually iterated into something cleaner,
+borrowing the module style from my friend's [invra/inc](https://github.com/invra/inc)
+and the dendritic pattern from [mightyiam/infra](https://github.com/mightyiam/infra).
+
+It's simple, not over-engineered — just the things I need, all in one place. If my
+machine ever breaks, I can rebuild everything with one command. No manual setup,
+no reinstalling apps one by one.
+
+I've been on NixOS since around March or April 2025. Before that, I was tired of
+watching Windows slow down with every update and having to start over from scratch.
+Now everything I need is declarative — a single `sudo nixos-rebuild switch` and
+I'm back where I left off.
+
+This config should take about 5 to 10 minutes to read through. Nothing complicated,
+just a student setup that works well on a ThinkPad T490s. Feel free to use it as
+a reference for your own setup.
+
+---
+
 ## Inspiration
 
 Inspired by and borrowing patterns from:

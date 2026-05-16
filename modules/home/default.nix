@@ -8,6 +8,15 @@
     home.stateVersion = "25.11";
     programs.home-manager.enable = true;
     gtk.gtk4.theme = null;
+    systemd.user.services.hyprpaper = lib.mkForce {
+      Unit = {
+        Description = "hyprpaper (disabled)";
+        ConditionPathExists = "/nonexistent";
+      };
+      Service = {
+        ExecStart = "${pkgs.coreutils}/bin/true";
+      };
+    };
 
     home.shellAliases = {
       fuckoff = "exit";
@@ -474,40 +483,44 @@
          notify-send "Screenshot saved" "$FILE"
        '')
         (pkgs.writeShellScriptBin "power-menu" ''
-         ACTION=$(printf "Lock\nLogout\nSuspend\nRestart\nShutdown\n" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
+          logout() {
+            if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+              hyprctl dispatch exit
+            elif [ -n "$SWAYSOCK" ]; then
+              swaymsg exit
+            else
+              loginctl terminate-session "$XDG_SESSION_ID"
+            fi
+          }
 
-         logout() {
-           if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
-             hyprctl dispatch exit
-           elif [ -n "$SWAYSOCK" ]; then
-             swaymsg exit
-           else
-             loginctl terminate-session "$XDG_SESSION_ID"
-           fi
-         }
+          pick() {
+            printf '%s\n' "$@" | ${pkgs.tofi}/bin/tofi --prompt-text "power: "
+          }
 
-         case "$ACTION" in
-           "Lock")
-             ${pkgs.swaylock}/bin/swaylock
-             ;;
-           "Logout")
-             CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
-             [ "$CONFIRM" = "Yes" ] && logout
-             ;;
-           "Suspend")
-             CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
-             [ "$CONFIRM" = "Yes" ] && systemctl suspend
-             ;;
-           "Restart")
-             CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
-             [ "$CONFIRM" = "Yes" ] && systemctl reboot
-             ;;
-           "Shutdown")
-             CONFIRM=$(printf "Yes\nNo" | ${pkgs.tofi}/bin/tofi --config "$HOME/.config/tofi/menu")
-             [ "$CONFIRM" = "Yes" ] && systemctl poweroff
-             ;;
-         esac
-       '')
+          ACTION=$(pick Lock Logout Suspend Restart Shutdown)
+
+          case "$ACTION" in
+            "Lock")
+              ${pkgs.swaylock}/bin/swaylock
+              ;;
+            "Logout")
+              CONFIRM=$(pick Yes No)
+              [ "$CONFIRM" = "Yes" ] && logout
+              ;;
+            "Suspend")
+              CONFIRM=$(pick Yes No)
+              [ "$CONFIRM" = "Yes" ] && systemctl suspend
+              ;;
+            "Restart")
+              CONFIRM=$(pick Yes No)
+              [ "$CONFIRM" = "Yes" ] && systemctl reboot
+              ;;
+            "Shutdown")
+              CONFIRM=$(pick Yes No)
+              [ "$CONFIRM" = "Yes" ] && systemctl poweroff
+              ;;
+          esac
+        '')
     ];
 
     wayland.windowManager.sway = {

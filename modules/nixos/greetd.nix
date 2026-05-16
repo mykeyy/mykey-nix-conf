@@ -4,7 +4,9 @@
       enable = true;
       settings = {
         default_session = {
-          command = "XDG_DATA_DIRS=/run/current-system/sw/share ${pkgs.cage}/bin/cage -s -mlast -- ${pkgs.regreet}/bin/regreet";
+          command = "${pkgs.writeShellScriptBin "regreet-session" ''
+            exec ${pkgs.cage}/bin/cage -s -mlast -- ${pkgs.regreet}/bin/regreet
+          ''}/bin/regreet-session";
           user = "greeter";
         };
       };

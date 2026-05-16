@@ -12,6 +12,7 @@
 
     home-manager = {
       useGlobalPkgs = true;
+      backupFileExtension = "backup";
       users.mykey.imports = [ config.flake.modules.homeManager.base ];
     };
   };

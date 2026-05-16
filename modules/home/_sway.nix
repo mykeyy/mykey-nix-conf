@@ -18,6 +18,7 @@
       workspace 5 output *
       exec swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill
       exec eww open bar
+      exec systemctl --user import-environment WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS
       exec systemctl --user restart xdg-desktop-portal-wlr
     '';
     config = {

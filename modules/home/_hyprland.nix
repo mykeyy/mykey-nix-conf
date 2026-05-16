@@ -60,6 +60,7 @@
       exec-once = [
         "swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill"
         "eww open bar"
+        "systemctl --user import-environment WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS"
         "systemctl --user restart xdg-desktop-portal-hyprland"
       ];
 

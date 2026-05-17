@@ -22,11 +22,11 @@
       $env.NH_DARWIN_FLAKE = $"($env.HOME)/.nix";
       $env.NH_HOME_FLAKE = $"($env.HOME)/.nix";
       $env.PATH = ($env.PATH | split row (char esep))
-      | prepend "/run/wrappers/bin"
-      | prepend ($"($env.HOME)/.nix-profile/bin")
-      | prepend ($"/etc/profiles/per-user/(whoami)/bin")
-      | prepend "/nix/var/nix/profiles/default/bin"
       | prepend "/run/current-system/sw/bin"
+      | prepend "/nix/var/nix/profiles/default/bin"
+      | prepend ($"/etc/profiles/per-user/(whoami)/bin")
+      | prepend ($"($env.HOME)/.nix-profile/bin")
+      | prepend "/run/wrappers/bin"
       | uniq
     '';
     extraConfig = ''

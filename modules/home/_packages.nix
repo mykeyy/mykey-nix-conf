@@ -27,7 +27,8 @@
     eww
     vivid
     playerctl
-    bluez
+      bluez
+      bluetuith
     libnotify
       jq
       xclip

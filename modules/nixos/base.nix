@@ -9,6 +9,8 @@
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     hardware.enableAllFirmware = true;
+    hardware.bluetooth.enable = true;
+    services.blueman.enable = true;
 
     home-manager = {
       useGlobalPkgs = true;

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.audio = {
+  flake.modules.nixos.audio = { ... }: {
     security.rtkit.enable = true;
     services.pulseaudio.enable = false;
     services.pipewire = {
@@ -7,6 +7,7 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      jack.enable = true;
     };
   };
 }

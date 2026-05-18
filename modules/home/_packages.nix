@@ -29,6 +29,7 @@
     playerctl
       bluez
       bluetuith
+      antigravity
     libnotify
       jq
       xclip

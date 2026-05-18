@@ -15,7 +15,7 @@
 
     systemd.services.greetd = {
       after = [ "accounts-daemon.service" ];
-      requires = [ "accounts-daemon.service" ];
+      wants = [ "accounts-daemon.service" ];
     };
 
     programs.regreet.enable = true;

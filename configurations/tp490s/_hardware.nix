@@ -10,6 +10,11 @@
   ];
   boot.kernelModules = [ "kvm-intel" ];
 
+  boot.extraModprobeConfig = ''
+    options iwlwifi power_save=0
+    options iwlmvm power_scheme=1
+  '';
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/c6f6eaba-6f85-4314-9afe-5e69a66ebcc2";
     fsType = "ext4";

@@ -30,6 +30,9 @@
       bluez
       bluetuith
       antigravity
+      nodejs
+      bun
+      libreoffice-qt-fresh
     libnotify
       jq
       xclip

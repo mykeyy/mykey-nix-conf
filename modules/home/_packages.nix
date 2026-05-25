@@ -14,6 +14,7 @@
     killall
     unzip
     wget
+    opencode
     tofi
     swaybg
     swaylock
@@ -26,15 +27,15 @@
     eww
     vivid
     playerctl
-      bluez
-      bluetuith
-      antigravity
-      nodejs
-      bun
-      libreoffice-qt-fresh
+    bluez
+    bluetuith
+    antigravity
+    nodejs
+    bun
+    libreoffice-qt-fresh
     libnotify
-      jq
-      xclip
+    jq
+    xclip
     (callPackage ../../tools/screenshot { })
     (pkgs.writeShellScriptBin "power-menu" ''
       logout() {

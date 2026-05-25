@@ -47,6 +47,8 @@
         "Mod4+Return" = "exec ghostty";
         "Mod1+Space" = "exec ${pkgs.tofi}/bin/tofi-drun --drun-launch=true";
         "Mod4+p" = "exec wdisplays";
+        "Print" = "exec screenshot";
+        "Mod1+Print" = "exec annotate";
         "Mod1+s" = "exec screenshot";
         "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.5";
         "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";

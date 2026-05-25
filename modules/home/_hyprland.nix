@@ -87,6 +87,8 @@
           "$mod, P, exec, wdisplays"
           "$alt, Space, exec, ${pkgs.tofi}/bin/tofi-drun --drun-launch=true"
           "$alt, S, exec, screenshot"
+          ", Print, exec, screenshot"
+          "$alt, Print, exec, annotate"
           "$alt, V, exec, cliphist list | ${pkgs.tofi}/bin/tofi | cliphist decode | wl-copy"
 
           ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.5"

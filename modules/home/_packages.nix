@@ -36,7 +36,12 @@
     libnotify
     jq
     xclip
+    satty
     (callPackage ../../tools/screenshot { })
+    (pkgs.writeShellScriptBin "annotate" ''
+      ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | \
+        ${pkgs.satty}/bin/satty --filename - --fullscreen --copy-command ${pkgs.wl-clipboard}/bin/wl-copy
+    '')
     (pkgs.writeShellScriptBin "power-menu" ''
       logout() {
         if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then

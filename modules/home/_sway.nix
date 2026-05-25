@@ -49,6 +49,7 @@
         "Mod4+p" = "exec wdisplays";
         "Print" = "exec screenshot";
         "Mod1+Print" = "exec annotate";
+        "Mod1+v" = "exec cliphist list | ${pkgs.tofi}/bin/tofi | cliphist decode | wl-copy";
         "Mod1+s" = "exec screenshot";
         "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.5";
         "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";

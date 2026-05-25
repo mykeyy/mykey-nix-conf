@@ -229,11 +229,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1778443072,
-        "narHash": "sha256-zi7/fsqM/kFdNuED//4WOCUtezGtKKqRNORjMvfwjnA=",
+        "lastModified": 1779508470,
+        "narHash": "sha256-Ap9KJX+5xHIn3bPIpfNgT6MEXdAECECwo4/rmlQD74M=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "da5ad661ba4e5ef59ba743f0d112cbc30e474f32",
+        "rev": "29916453413845e54a65b8a1cf996842300cd299",
         "type": "github"
       },
       "original": {
@@ -299,6 +299,27 @@
         "type": "github"
       }
     },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779646119,
+        "narHash": "sha256-z5L6GsDggyVdRHZ026lT6hecstfMLGqWdXCrLPcZrqY=",
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "rev": "47f333299bb193f28dfdd94ccc43e55c529198ee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "ref": "dev",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -306,6 +327,7 @@
         "import-tree": "import-tree",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs",
+        "opencode": "opencode",
         "stylix": "stylix",
         "zen-browser": "zen-browser"
       }

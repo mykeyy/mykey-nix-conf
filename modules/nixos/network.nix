@@ -1,24 +1,12 @@
-{ ... }:
 {
-  flake.modules.nixos.network = { pkgs, lib, ... }: {
-    networking.useNetworkd = true;
-    networking.wireless.enable = true;
-    networking.wireless.userControlled = true;
-    networking.wireless.extraConfig = ''
-      update_config=1
-    '';
+  flake.modules.nixos.network = {
+    networking.networkmanager.enable = true;
+    networking.networkmanager.wifi.powersave = false;
 
-    systemd.services.wpa_supplicant.serviceConfig.ExecStart = lib.mkForce [
-      ""
-      "${pkgs.wpa_supplicant}/bin/wpa_supplicant -i wlp0s20f3 -c /etc/wpa_supplicant/wpa_supplicant.conf -Dnl80211,wext -s -u"
-    ];
-
-    systemd.tmpfiles.rules = [
-      "d /etc/wpa_supplicant 0755 wpa_supplicant wpa_supplicant -"
-    ];
-
-    powerManagement.resumeCommands = ''
-      systemctl restart wpa_supplicant
+    environment.etc."NetworkManager/conf.d/10-wifi-metric.conf".text = ''
+      [connection-wifi]
+      match-device=type:wifi
+      connection.route-metric=50
     '';
 
     services.openssh.enable = true;

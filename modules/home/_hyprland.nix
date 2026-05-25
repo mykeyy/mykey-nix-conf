@@ -2,7 +2,6 @@
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "hyprlang";
-    plugins = [ pkgs.hyprlandPlugins.hy3 ];
 
     settings = {
       "$mod" = "SUPER";
@@ -13,22 +12,22 @@
       general = {
         gaps_in = 12;
         gaps_out = 10;
-        border_size = 3;
-        layout = "hy3";
+        border_size = 2;
+        layout = "dwindle";
         resize_on_border = true;
       };
 
       decoration = {
-        rounding = 8;
+        rounding = 4;
         blur = {
           enabled = true;
-          size = 3;
+          size = 2;
           passes = 1;
         };
         shadow = {
-          enabled = true;
-          range = 4;
-          render_power = 3;
+          enabled = false;
+          range = 2;
+          render_power = 2;
         };
       };
 
@@ -36,15 +35,18 @@
         enabled = true;
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
         animation = [
-          "windows, 1, 7, myBezier"
-          "windowsOut, 1, 7, default, popin 80%"
-          "border, 1, 10, default"
-          "fade, 1, 7, default"
-          "workspaces, 1, 6, default"
+          "windows, 1, 4, myBezier"
+          "windowsOut, 1, 4, default, popin 80%"
+          "border, 1, 6, default"
+          "fade, 1, 4, default"
+          "workspaces, 1, 4, default"
         ];
       };
 
-      plugin.hy3.tab_first_window = true;
+      render = {
+        explicit_sync = 0;
+        explicit_sync_kms = 0;
+      };
 
       input = {
         kb_layout = "us";
@@ -55,6 +57,7 @@
       misc = {
         force_default_wallpaper = 0;
         disable_hyprland_logo = true;
+        vfr = true;
       };
 
       exec-once = [
@@ -72,44 +75,40 @@
           "$mod SHIFT, E, exec, power-menu"
           "$mod, L, exec, swaylock"
 
-          "$mod SHIFT, Q, hy3:killactive"
+          "$mod SHIFT, Q, killactive"
 
           "$mod, F, fullscreen, 1"
           "$mod SHIFT, F, fullscreen, 0"
 
-          "$mod, TAB, hy3:togglefocuslayer"
-
-          "$mod, S, hy3:makegroup, h"
-          "$mod, V, hy3:makegroup, v"
-          "$mod, T, hy3:makegroup, tab"
-
-          "$mod, A, hy3:changefocus, raise"
-          "$mod SHIFT, A, hy3:changefocus, lower"
-
-          "$mod, E, hy3:expand, expand"
-          "$mod SHIFT, E, hy3:expand, base"
-
-          "$mod, R, hy3:changegroup, opposite"
+          "$mod, J, togglesplit"
 
           "$mod SHIFT, TAB, togglefloating"
 
           "$mod, P, exec, wdisplays"
           "$alt, Space, exec, ${pkgs.tofi}/bin/tofi-drun --drun-launch=true"
           "$alt, S, exec, screenshot"
+          "$alt, V, exec, cliphist list | ${pkgs.tofi}/bin/tofi | cliphist decode | wl-copy"
 
           ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.5"
           ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
           ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+          ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
+          ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioPause, exec, playerctl play-pause"
+          ", XF86AudioPrev, exec, playerctl previous"
         ]
 
         (let
-          hjkl = mod: lib.mapAttrsToList (k: d: "${mod}, ${k}, hy3:movefocus, ${d}") {
+          hjkl = mod: lib.mapAttrsToList (k: d: "${mod}, ${k}, movefocus, ${d}") {
             h = "l";
             j = "d";
             k = "u";
             l = "r";
           };
-          moveHjkl = mod: lib.mapAttrsToList (k: d: "${mod}, ${k}, hy3:movewindow, ${d}, once") {
+          moveHjkl = mod: lib.mapAttrsToList (k: d: "${mod}, ${k}, movewindow, ${d}") {
             h = "l";
             j = "d";
             k = "u";
@@ -124,7 +123,7 @@
         (lib.concatLists (
           lib.genList (n: let ws = toString (n + 1); in [
             "$mod, ${ws}, workspace, ${ws}"
-            "$mod SHIFT, ${ws}, hy3:movetoworkspace, ${ws}"
+            "$mod SHIFT, ${ws}, movetoworkspace, ${ws}"
           ]) 9
         ))
       ];
@@ -138,6 +137,12 @@
         "float,class:^(pavucontrol)$"
         "float,class:^(wofi)$"
         "float,class:^(tofi)$"
+        "opacity 0.90,class:^(ghostty)$"
+        "opacity 0.90 0.80,class:^(zen)$"
+        "opacity 0.85 0.75,class:^(vesktop)$"
+        "opacity 0.85 0.75,class:^(discord)$"
+        "opacity 0.85 0.75,class:^(Spotify)$"
+        "suppressevent maximize,class:.*"
       ];
     };
   };

@@ -40,7 +40,7 @@
       isNormalUser = true;
       description = "mykey";
       shell = pkgs.nushell;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" ];
     };
 
     system.stateVersion = "25.11";

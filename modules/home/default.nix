@@ -23,7 +23,8 @@
 
     programs.nixcord = {
       enable = true;
-      vesktop.enable = true;
+      vesktop.enable = false;
+      discord.vencord.enable = true;
       quickCss = builtins.readFile (rootPath + "/quickcss.nix");
       config = {
         useQuickCss = true;

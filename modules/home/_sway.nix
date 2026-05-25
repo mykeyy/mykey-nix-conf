@@ -37,9 +37,6 @@
         border = 3;
         titlebar = false;
       };
-      startup = [
-        { command = "systemctl --user restart xdg-desktop-portal-wlr"; }
-      ];
       keybindings = {
         "Mod1+Return" = "fullscreen";
         "Mod1+q" = "kill";

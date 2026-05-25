@@ -5,6 +5,8 @@
       (pkgs.wrapFirefox inputs.zen-browser.packages.${pkgs.system}.zen-browser-unwrapped {
         extraPrefs = ''
           lockPref("extensions.autoDisableScopes", 0);
+          lockPref("media.hardware-video-decoding.enabled", true);
+          lockPref("gfx.webrender.all", true);
         '';
 
         extraPolicies = {

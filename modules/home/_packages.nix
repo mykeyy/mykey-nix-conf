@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     bat
     ripgrep
@@ -17,7 +17,6 @@
     tofi
     swaybg
     swaylock
-    hyprshot
     wl-clipboard
     grim
     slurp
@@ -36,14 +35,7 @@
     libnotify
       jq
       xclip
-    (pkgs.writeShellScriptBin "screenshot" ''
-      mkdir -p "$HOME/Pictures/screenshots"
-      FILE="$HOME/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
-      ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" "$FILE"
-      ${pkgs.wl-clipboard}/bin/wl-copy --type image/png < "$FILE"
-      echo -n "$FILE" | ${pkgs.wl-clipboard}/bin/wl-copy --primary
-      notify-send "Screenshot saved" "$FILE"
-    '')
+    (callPackage ../../tools/screenshot { })
     (pkgs.writeShellScriptBin "power-menu" ''
       logout() {
         if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then

@@ -2,6 +2,7 @@
   lib,
   config,
   inputs,
+  rootPath,
   ...
 }:
 let
@@ -14,6 +15,10 @@ let
         else if lib.hasPrefix "mac" name then "aarch64-darwin"
         else "x86_64-linux";
       isLinux = lib.hasSuffix "linux" system;
+      pkgs = import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
     {
       nixosConfigurations = lib.optionalAttrs isLinux {
@@ -21,14 +26,22 @@ let
           inherit system;
           modules = [
             {
-              nixpkgs.pkgs = import inputs.nixpkgs {
-                inherit system;
-                config.allowUnfree = true;
-              };
+              nixpkgs.pkgs = pkgs;
             }
             cfg.module
           ];
           specialArgs = { inherit inputs; };
+        };
+      };
+
+      homeConfigurations = lib.optionalAttrs isLinux {
+        mykey = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            inputs.stylix.homeModules.stylix
+            config.flake.modules.homeManager.base
+          ];
+          extraSpecialArgs = { inherit inputs rootPath; };
         };
       };
     };

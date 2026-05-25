@@ -8,6 +8,7 @@
       plasma
       swayfx
       hyprland
+      hardware-acceleration
       audio
       network
       printing

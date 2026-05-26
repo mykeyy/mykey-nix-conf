@@ -1,7 +1,5 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    bat
-    ripgrep
     fd
     btop
     gh
@@ -13,7 +11,6 @@
     obs-studio
     killall
     unzip
-    wget
     opencode
     tofi
     swaybg

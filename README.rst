@@ -37,7 +37,7 @@ Sessions
 
 ======= ===========================================
 SwayFX   Blur, shadows, rounded corners, eww bar
-Hyprland hy3 tabbed layout (inspired by mightyiam)
+Hyprland dwindle layout, Intel-tuned effects
 Plasma 6 Full KDE desktop, rose-pine themed
 ======= ===========================================
 

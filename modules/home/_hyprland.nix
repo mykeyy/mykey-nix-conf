@@ -43,10 +43,7 @@
         ];
       };
 
-      render = {
-        explicit_sync = 0;
-        explicit_sync_kms = 0;
-      };
+
 
       input = {
         kb_layout = "us";
@@ -142,7 +139,6 @@
         "float,class:^(tofi)$"
         "opacity 0.90,class:^(ghostty)$"
         "opacity 0.90 0.80,class:^(zen)$"
-        "opacity 0.85 0.75,class:^(vesktop)$"
         "opacity 0.85 0.75,class:^(discord)$"
         "opacity 0.85 0.75,class:^(Spotify)$"
         "suppressevent maximize,class:.*"

@@ -100,14 +100,13 @@ Inspired by and borrowing patterns from:
 │   ├── plasmashellrc              Plasma shell config
 │   ├── plasmarc                   Plasma config
 │   ├── plasma-localerc            Plasma locale
-│   ├── plasma-org.kde.plasma.desktop-appletsrc  Plasma applets
-│   └── oh-my-posh.json           (unused, legacy)
+│   └── plasma-org.kde.plasma.desktop-appletsrc  Plasma applets
 │
 ├── tools/
 │   └── screenshot/                Zig screenshot helper built by Nix (zig_0_15)
 │
 ├── wallpapers/                    wallpaper images
-├── quickcss.nix                   Rose Pine CSS for Discord/Vencord (despite .nix extension, it's CSS)
+├── quickcss.nix                   Rose Pine CSS for Discord/Vencord (read as raw text via builtins.readFile)
 ├── flake.nix                      flake entry point
 ├── flake.lock                     pinned inputs
 └── README.rst                     project readme
@@ -165,7 +164,7 @@ tells import-tree: *"skip this file, it's imported manually by `default.nix`."*
 | **Music** | spotify + spicetify-cli + spotify-player (TUI) |
 | **Editor** | helix · vscodium |
 | **Gaming** | prismlauncher · Moonlight (remote from Windows) |
-| **Power** | power-profiles-daemon · `PERF`/`BAL`/`SAV` eww widget |
+| **Power** | battery percentage in eww bar · manual power profile switching |
 | **Audio** | easyeffects (mic EQ) · pipewire |
 | **Clipboard** | cliphist · wl-clipboard sync |
 | **Fonts** | JetBrainsMono Nerd Font · noto-fonts (CJK fallback) |
@@ -215,139 +214,6 @@ rebuild --update   # update flake inputs first
 | `zen-browser` | Web browser |
 | `opencode` | AI coding assistant |
 
----
-
-## Known Issues & Bugs 🐛
-
-> Things that should be fixed or investigated. Ordered by severity.
-
-### 🔴 Critical / Will break on update
-
-1. **`explicit_sync` is deprecated and removed in Hyprland ≥ v0.50**  
-   `_hyprland.nix` sets `render.explicit_sync = 0` and `render.explicit_sync_kms = 0`.
-   These options no longer exist — Hyprland now handles explicit sync automatically.
-   On newer Hyprland versions this will produce a config error or be silently ignored.
-   **Fix:** Remove the entire `render` block from `_hyprland.nix`.
-
-2. **`withUWSM = false` in `hyprland.nix` goes against upstream recommendation**  
-   Hyprland upstream now recommends launching via UWSM (Universal Wayland Session
-   Manager) for proper systemd integration. Keeping this `false` means environment
-   variables and session lifecycle aren't managed as cleanly.
-   **Fix:** Set `withUWSM = true` or remove the line (defaults to `true` on newer nixpkgs).
-
-3. **Dual stylix module import creates potential conflict**  
-   `stylix.nixosModules.stylix` is imported in `modules/nixos/stylix.nix`, AND
-   `stylix.homeModules.stylix` is imported in `modules/configurations.nix` for the
-   standalone `homeConfigurations`. Meanwhile, `base.nix` also enables
-   `home-manager` as a NixOS module with `useGlobalPkgs = true`. This means the NixOS
-   stylix module already propagates to home-manager users via the NixOS integration,
-   but the standalone `homeConfigurations.mykey` separately imports the HM module.
-   If you ever try to use the standalone HM config, you may get option conflicts
-   or doubled theming.
-   **Fix:** Decide whether you use the NixOS-integrated HM or standalone HM, not both.
-
-### 🟡 Medium / Incorrect or stale
-
-4. **`quickcss.nix` is not actually Nix — it's CSS**  
-   The file `quickcss.nix` contains pure CSS (Rose Pine theme for Discord). The `.nix`
-   extension is misleading. It works because `builtins.readFile` just reads raw text,
-   but it confuses editors, linters, and anyone reading the repo.
-   **Fix:** Rename to `quickcss.css` and update the `builtins.readFile` path in
-   `modules/home/default.nix`.
-
-5. **Duplicate `nixpkgs` import — `configurations.nix` re-imports nixpkgs**  
-   `configurations.nix` does `pkgs = import inputs.nixpkgs { ... }` which creates a
-   separate nixpkgs instance. Meanwhile `modules/nixpkgs.nix` also creates a perSystem
-   `pkgs`. The NixOS module already has its own `nixpkgs.pkgs` assignment. This means
-   there are potentially 3 separate nixpkgs evaluations happening.
-   **Fix:** Consider using a single pkgs instance. The NixOS one is already handled,
-   but the standalone HM config could use `nixpkgs.legacyPackages.${system}` instead.
-
-6. **Duplicate shell alias — `fuckoff` defined in two places**  
-   `_core.nix` defines `home.shellAliases.fuckoff = "exit"` and `_shell.nix` defines
-   `programs.nushell.shellAliases.fuckoff = "exit"`. The `home.shellAliases` one
-   applies to all shells, the nushell one only to nushell. Both set the same value
-   for the same alias — one of them is redundant.
-   **Fix:** Remove from `_core.nix` since nushell is your only shell, or remove from
-   `_shell.nix` since `home.shellAliases` already covers it.
-
-7. **Duplicate `spotify` alias in nushell**  
-   `_shell.nix` defines `spotify = "spotify_player"` but spotify is also in
-   `home.packages` as the full Spotify desktop client. This means the `spotify` command
-   will always run the TUI, not the GUI — which may be intentional but is confusing.
-   **Clarify:** If you always use the TUI, consider not installing the GUI `spotify`
-   package to save closure size.
-
-8. **Missing `power.nix` — SKILL.md references power module but it doesn't exist**  
-   The old SKILL.md mentioned `power.nix` (power profiles daemon) but there's no such
-   file in `modules/nixos/`. The `power-profiles-daemon` service isn't enabled anywhere
-   in the config, yet the eww bar widget references power profiles (`PERF`/`BAL`/`SAV`).
-   **Fix:** Either create `modules/nixos/power.nix` with
-   `services.power-profiles-daemon.enable = true;` or remove the power profile
-   references from the eww bar.
-
-9. **`import-tree` reference in SKILL.md points to wrong repo**  
-   The Inspiration table links to `denful/import-tree` but your `flake.nix` actually
-   uses `github:vic/import-tree`. These are the same project (vic is the original
-   author, denful is the org), but the link should match what's in `flake.nix` for
-   consistency.
-   **Fix:** Update the link to `github.com/vic/import-tree` to match your flake input.
-
-10. **README.rst says Hyprland uses "hy3" layout but config uses "dwindle"**  
-    `README.rst` line 40 says "hy3 tabbed layout (inspired by mightyiam)" but
-    `_hyprland.nix` sets `layout = "dwindle"`. The hy3 plugin isn't configured anywhere.
-    **Fix:** Update README.rst to say "dwindle" or actually add hy3 if that was the plan.
-
-11. **Stale vesktop window rules in `_hyprland.nix`**  
-    `windowrulev2` includes `opacity 0.85 0.75,class:^(vesktop)$` but nixcord
-    has `vesktop.enable = false` — you're using standard Discord with Vencord.
-    The vesktop rule will never match anything.
-    **Fix:** Remove the vesktop window rule, or change it to match the actual
-    Discord window class if you want opacity on Discord.
-
-### 🟢 Low / Cosmetic & cleanup
-
-12. **`oh-my-posh.json` in configs/ appears unused**  
-    No module references this file. It seems like a leftover from before switching to
-    starship.
-    **Fix:** Delete `configs/oh-my-posh.json`.
-
-13. **Ghostty installed at both system and home level**  
-    `modules/nixos/packages.nix` installs `ghostty` system-wide and
-    `modules/home/_terminal.nix` enables `programs.ghostty`. The HM module wraps
-    ghostty with config, so the system-level package is redundant.
-    **Fix:** Remove `ghostty` from `modules/nixos/packages.nix`.
-
-14. **`antigravity` installed at both system and user level**  
-    Present in both `modules/nixos/packages.nix` and `modules/home/_packages.nix`.
-    **Fix:** Pick one location.
-
-15. **Several home packages are also installed via `programs.*` modules**  
-    `bat`, `ripgrep` appear in both `_packages.nix` (via `with pkgs`) and `_apps.nix`
-    (via `programs.bat.enable`, `programs.ripgrep.enable`). The `programs.*` modules
-    already handle installation.
-    **Fix:** Remove `bat` and `ripgrep` from `_packages.nix` since they're enabled
-    via `programs.*` in `_apps.nix`.
-
-16. **`wget` installed at both system and home level**  
-    Present in `modules/nixos/packages.nix` and `modules/home/_packages.nix`.
-    **Fix:** Keep only in one place (system is sufficient).
-
-17. **Unused `pkgs` argument in several modules**  
-    `_clipboard.nix` takes `{ pkgs, ... }:` but doesn't use `pkgs`.
-    `_core.nix` takes `{ pkgs, ... }:` but doesn't use `pkgs`.
-    **Fix:** Change to `{ ... }:`.
-
-18. **`checkConfig = false` in Sway module may hide errors**  
-    `_sway.nix` disables config checking. This was likely needed for SwayFX-specific
-    options, but it means typos in keybinds won't be caught at build time.
-    **Note:** This is a known trade-off with SwayFX, not necessarily a bug.
-
-19. **Hyprland `exec-once` uses `swaybg` instead of `hyprpaper`**  
-    `_hyprland.nix` starts `swaybg` for wallpapers, and `_hyprpaper.nix` forcefully
-    disables hyprpaper. Hyprland's native `hyprpaper` is more efficient. The hacky
-    service disable via `ConditionPathExists = "/nonexistent"` is fragile.
-    **Consider:** Using `hyprpaper` natively or at least documenting why `swaybg` is preferred.
 
 ---
 
@@ -425,6 +291,9 @@ rebuild --update   # update flake inputs first
 
 ### Style
 
+- Only Nix, Zig, and Rust — **no other languages** (no CSS/SCSS/JSON/YAML files).
+  Config data that would normally be CSS/JSON is kept in `.nix` files and read via
+  `builtins.readFile` or inline strings.
 - Use `with pkgs;` sparingly — only in `home.packages` lists
 - Prefer `programs.<name>.enable = true` over raw package installation
 - Use `builtins.readFile` for external config files

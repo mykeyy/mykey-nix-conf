@@ -14,10 +14,8 @@
       })
     ];
     environment.systemPackages = with pkgs; [
-      antigravity
       wget
       vim
-      ghostty
       git
     ];
   };

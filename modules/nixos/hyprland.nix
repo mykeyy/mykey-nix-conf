@@ -1,9 +1,6 @@
 {
   flake.modules.nixos.hyprland = { pkgs, ... }: {
-    programs.hyprland = {
-      enable = true;
-      withUWSM = false;
-    };
+    programs.hyprland.enable = true;
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";

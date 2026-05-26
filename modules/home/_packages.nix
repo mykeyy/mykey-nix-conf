@@ -35,7 +35,6 @@
     xclip
     satty
     (callPackage ../../tools/screenshot { })
-    (callPackage ../../tools/openclaude { })
     (pkgs.writeShellScriptBin "annotate" ''
       ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | \
         ${pkgs.satty}/bin/satty --filename - --fullscreen --copy-command ${pkgs.wl-clipboard}/bin/wl-copy

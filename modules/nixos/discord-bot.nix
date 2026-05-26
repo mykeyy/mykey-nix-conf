@@ -16,8 +16,8 @@
             OPENCODE_API_KEY="your-opencode-go-api-key"
             
             Optional variables:
-            OPENCODE_API_BASE="https://opencode.ai/zen/go/v1"
-            OPENCODE_MODEL="gpt-4o"
+            OPENCODE_API_BASE="https://api.deepinfra.com/v1"
+            OPENCODE_MODEL="deepinfra/deepseek-ai/DeepSeek-V4-Flash"
           '';
         };
       };
@@ -35,11 +35,13 @@
             # Load keys securely from the secrets file
             EnvironmentFile = cfg.secretsFile;
 
+            # Run directly as your user to easily access the project folder
+            User = "mykey";
+            Group = "users";
+
             # Security and sandboxing
             Restart = "on-failure";
             RestartSec = "10s";
-            DynamicUser = true;
-            StateDirectory = "discord-bot";
             ProtectSystem = "strict";
             ProtectHome = "read-only"; # Allow reading/executing the binary in home directory
             NoNewPrivileges = true;

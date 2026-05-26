@@ -18,7 +18,7 @@
             
             Optional variables:
             OPENCODE_API_BASE="https://api.deepinfra.com/v1"
-            OPENCODE_MODEL="deepinfra/deepseek-ai/DeepSeek-V4-Flash"
+            OPENCODE_MODEL="meta-llama/Llama-3.2-90B-Vision-Instruct" (or meta-llama/Llama-3.2-11B-Vision-Instruct)
           '';
         };
       };

@@ -14,6 +14,7 @@
             The file must contain:
             DISCORD_TOKEN="your-discord-bot-token"
             OPENCODE_API_KEY="your-opencode-go-api-key"
+            DISCORD_OWNER_ID="your-personal-discord-user-id"
             
             Optional variables:
             OPENCODE_API_BASE="https://api.deepinfra.com/v1"
@@ -42,9 +43,8 @@
             # Security and sandboxing
             Restart = "on-failure";
             RestartSec = "10s";
-            ProtectSystem = "strict";
-            ProtectHome = "read-only"; # Allow reading/executing the binary in home directory
-            NoNewPrivileges = true;
+            ProtectSystem = "false";
+            ProtectHome = "false";
           };
         };
       };

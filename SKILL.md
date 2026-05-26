@@ -103,7 +103,8 @@ Inspired by and borrowing patterns from:
 │   └── plasma-org.kde.plasma.desktop-appletsrc  Plasma applets
 │
 ├── tools/
-│   └── screenshot/                Zig screenshot helper built by Nix (zig_0_15)
+│   ├── screenshot/                Zig screenshot helper built by Nix (zig_0_15)
+│   └── openclaude/                Nix wrapper providing openclaude & openclaw CLIs
 │
 ├── wallpapers/                    wallpaper images
 ├── quickcss.nix                   Rose Pine CSS for Discord/Vencord (read as raw text via builtins.readFile)

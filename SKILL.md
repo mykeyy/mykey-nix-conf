@@ -325,3 +325,40 @@ nix flake update home-manager --flake ~/.nix
 # Garbage collect old generations
 sudo nix-collect-garbage -d
 ```
+
+---
+
+## Aider Chat Cheat Sheet 🤖
+
+### 1. Launching Aider
+Launch it from the root of your repository. It automatically reads your `.gitignore` and stages edits inside Git.
+
+```bash
+# Recommended: Use Claude 3.5 Sonnet (requires ANTHROPIC_API_KEY)
+export ANTHROPIC_API_KEY="your-key-here"
+aider
+
+# Alternative: Use Gemini 1.5 Pro/Flash (requires GEMINI_API_KEY)
+export GEMINI_API_KEY="your-key-here"
+aider --model gemini/gemini-1.5-pro
+
+# Alternative: Use DeepSeek (requires DEEPSEEK_API_KEY)
+export DEEPSEEK_API_KEY="your-key-here"
+aider --model deepseek/deepseek-chat
+```
+
+### 2. Core Commands inside Chat
+Inside the aider shell, you can use these easy `/` commands to coordinate:
+
+*   `/add <file>` — Add a file to the active chat session (giving the LLM write access).
+*   `/drop <file>` — Remove a file from the active chat session (reduces token usage).
+*   `/git <cmd>` — Run standard git commands directly from Aider (e.g., `/git status`, `/git diff`).
+*   `/test <cmd>` — Run a command (like `nix build`) to verify changes; if it fails, Aider automatically gets the errors and tries to fix them!
+*   `/undo` — Revert the last commit made by Aider if you don't like the changes.
+*   `/exit` — Exit the Aider session.
+
+### 3. Best Practices
+- **Commit History:** Aider will automatically commit every successfully completed file edit with a descriptive, atomic commit message. If you want to group edits yourself, you can run Aider with `aider --no-auto-commit`.
+- **Repo Map:** Aider maintains a local tree-sitter map of your repository. It understands your codebase's structure even if you only `/add` one or two files!
+- **Interactive Editing:** Simply tell Aider: *"Change the ghostty font size to 16 in _terminal.nix"* or *"Refactor packages.nix to remove duplicate packages"*, and watch it write the precise diff and commit it.
+

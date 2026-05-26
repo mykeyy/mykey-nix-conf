@@ -18,7 +18,7 @@
             
             Optional variables:
             OPENCODE_API_BASE="https://api.deepinfra.com/v1"
-            OPENCODE_MODEL="meta-llama/Llama-3.2-90B-Vision-Instruct" (or meta-llama/Llama-3.2-11B-Vision-Instruct)
+            OPENCODE_MODEL="moonshotai/Kimi-K2.6" (or XiaomiMiMo/MiMo-V2.5)
           '';
         };
       };

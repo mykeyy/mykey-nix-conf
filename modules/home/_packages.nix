@@ -27,6 +27,7 @@
     bluez
     bluetuith
     antigravity
+    aider-chat-full
     nodejs
     bun
     libreoffice-qt-fresh

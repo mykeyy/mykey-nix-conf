@@ -77,6 +77,12 @@
         /run/wrappers/bin/sudo nixos-rebuild switch --flake $"($flake)#tp490s"
       }
 
+      export def hms [--update (-u)] {
+        let flake = $"($env.HOME)/.nix"
+        if $update { nix flake update $flake }
+        nh home switch $flake
+      }
+
       if not ("x" in $env) {
         ${pkgs.fastfetch}/bin/fastfetch
       }

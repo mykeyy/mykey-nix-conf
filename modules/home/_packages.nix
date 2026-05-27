@@ -18,8 +18,6 @@
     wl-clipboard
     grim
     slurp
-    spotify
-    spicetify-cli
     nerd-fonts.jetbrains-mono
     eww
     vivid

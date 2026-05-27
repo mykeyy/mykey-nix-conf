@@ -1,5 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }:
+let
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in {
   stylix.targets.spotify-player.enable = false;
+  stylix.targets.spicetify.enable = false;
 
   programs.spotify-player = {
     enable = true;
@@ -22,5 +26,16 @@
         };
       };
     };
+  };
+
+  programs.spicetify = {
+    enable = true;
+    theme = spicePkgs.themes.comfy;
+    colorScheme = "rose-pine";
+
+    enabledExtensions = with spicePkgs.extensions; [
+      spicyLyrics
+      trashbin
+    ];
   };
 }

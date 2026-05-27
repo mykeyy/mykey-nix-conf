@@ -27,6 +27,7 @@
     home-manager = {
       useGlobalPkgs = true;
       backupFileExtension = "backup";
+      extraSpecialArgs = { inherit inputs; };
       users.mykey.imports = [ config.flake.modules.homeManager.base ];
     };
   };

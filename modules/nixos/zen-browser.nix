@@ -2,7 +2,7 @@
 {
   flake.modules.nixos.zen-browser = { pkgs, ... }: {
     environment.systemPackages = [
-      (pkgs.wrapFirefox inputs.zen-browser.packages.${pkgs.system}.zen-browser-unwrapped {
+      (pkgs.wrapFirefox inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.zen-browser-unwrapped {
         extraPrefs = ''
           lockPref("extensions.autoDisableScopes", 0);
           lockPref("media.hardware-video-decoding.enabled", true);

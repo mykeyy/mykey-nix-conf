@@ -10,36 +10,46 @@
       monitor = ",preferred,auto,auto";
 
       general = {
-        gaps_in = 12;
+        gaps_in = 5;
         gaps_out = 10;
-        border_size = 2;
+        border_size = 0;
         layout = "dwindle";
-        resize_on_border = true;
+        resize_on_border = false;
       };
 
       decoration = {
-        rounding = 4;
+        rounding = 10;
+        active_opacity = 1.0;
+        inactive_opacity = 0.8;
         blur = {
           enabled = true;
-          size = 2;
-          passes = 1;
+          size = 5;
+          passes = 3;
         };
         shadow = {
           enabled = false;
-          range = 2;
-          render_power = 2;
         };
       };
 
       animations = {
         enabled = true;
-        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+        bezier = [
+          "myBezier, 0.05, 0.9, 0.1, 1.05"
+          "been, 0.24, 0.9, 0.25, 0.91"
+          "wind, 0.05, 0.9, 0.1, 1.05"
+          "slow, 0, 0.85, 0.3, 1"
+          "overshot, 0.7, 0.6, 0.1, 1.1"
+          "bounce, 1.1, 1.6, 0.1, 0.85"
+          "linear, 0, 0, 1, 1"
+        ];
         animation = [
-          "windows, 1, 4, myBezier"
-          "windowsOut, 1, 4, default, popin 80%"
-          "border, 1, 6, default"
-          "fade, 1, 4, default"
-          "workspaces, 1, 4, default"
+          "windowsIn, 1, 5, slow, popin"
+          "windowsOut, 1, 7, been, popin 70%"
+          "windowsMove, 1, 5, wind, slide"
+          "border, 1, 1, linear"
+          "fade, 1, 5, overshot"
+          "workspaces, 1, 5, wind"
+          "windows, 1, 5, bounce, popin"
         ];
       };
 
@@ -59,7 +69,7 @@
 
       exec-once = [
         "swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill"
-        "eww open bar"
+        "waybar"
         "systemctl --user import-environment WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS"
         "systemctl --user restart xdg-desktop-portal-hyprland"
         "${pkgs.wl-clipboard}/bin/wl-paste --type text --primary --watch ${pkgs.wl-clipboard}/bin/wl-copy"
@@ -135,12 +145,13 @@
 
       windowrulev2 = [
         "float,class:^(pavucontrol)$"
+        "size 50% 60%,class:^(pavucontrol)$"
         "float,class:^(wofi)$"
         "float,class:^(tofi)$"
-        "opacity 0.90,class:^(ghostty)$"
-        "opacity 0.90 0.80,class:^(zen)$"
-        "opacity 0.85 0.75,class:^(discord)$"
-        "opacity 0.85 0.75,class:^(Spotify)$"
+        "opacity 0.90 0.90,class:^(ghostty)$"
+        "opacity 0.90 0.70 1.0,class:^(zen)$"
+        "opacity 0.85 0.70 1.0,class:^(discord)$"
+        "opacity 0.80 0.60 1.0,class:^(Spotify)$"
         "suppressevent maximize,class:.*"
       ];
     };

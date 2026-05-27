@@ -23,7 +23,7 @@ About
 
 I switched to NixOS in early 2025 because I got tired of watching Windows slow down with every update and having to set everything up manually from scratch. Now everything I need is declared in this flake. If my machine ever breaks, I can get back to exactly where I left off.
 
-This setup isn't over-engineered or complex—it's just a student configuration that gets the job done. It borrows the flat leaf module structure from my friend's `invra/inc` repo and the dendritic pattern from `mightyiam/infra`.
+This setup isn't over-engineered or complex—it's just a student configuration that gets the job done. It borrows the flat leaf module structure from my friend's `invra/inc` repo, the dendritic pattern from `mightyiam/infra`, and the premium window visuals, active transparency rules, and custom bezier animations ported from my friend's `brookerslyn/dotfiles`_ repository.
 
 Features
 --------
@@ -89,7 +89,9 @@ Links
 * `invra/inc <https://github.com/invra/inc>`_ — Module style inspiration
 * `mightyiam/infra <https://github.com/mightyiam/infra>`_ — Dendritic pattern origin
 * `import-tree <https://github.com/denful/import-tree>`_ — Auto-import engine
+* `brookerslyn/dotfiles <https://github.com/brookerslyn/dotfiles>`_ — Friend's visual config inspiration
 
 .. _invra/inc: https://github.com/invra/inc
 .. _mightyiam/infra: https://github.com/mightyiam/infra
 .. _import-tree: https://github.com/denful/import-tree
+.. _brookerslyn/dotfiles: https://github.com/brookerslyn/dotfiles

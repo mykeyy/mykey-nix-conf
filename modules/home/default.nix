@@ -3,6 +3,7 @@
   flake.modules.homeManager.base = { pkgs, lib, config, ... }: {
     imports = [
       inputs.nixcord.homeModules.nixcord
+      inputs.spicetify-nix.homeManagerModules.default
       ./_core.nix
       ./_shell.nix
       ./_terminal.nix

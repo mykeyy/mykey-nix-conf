@@ -15,10 +15,7 @@
       packages
       stylix
       zen-browser
-      discord-bot
     ];
-
-    services.discord-bot.enable = true;
 
     networking.hostName = "tp490s";
     time.timeZone = "Asia/Manila";

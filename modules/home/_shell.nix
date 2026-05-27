@@ -108,8 +108,8 @@
     settings = {
       logo = {
         source = ../../configs/fastfetch-logo.png;
-        width = 54;
-        height = 22;
+        width = 51;
+        height = 21;
         type = "kitty-direct";
       };
       display.separator = " ";

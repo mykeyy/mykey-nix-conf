@@ -1,6 +1,7 @@
 /wallpapers/*
 !/wallpapers/.gitkeep
 !/wallpapers/wallpaper.jpg
+!/wallpapers/screenshot.png
 result/
 *.lock~
 .aider*

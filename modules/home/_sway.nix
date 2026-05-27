@@ -10,14 +10,14 @@
       blur_passes 1
       shadows enable
       shadows_on_csd enable
-      layer_effects "swaybar" blur enable; corner_radius 8
+      layer_effects "eww" blur enable; corner_radius 8
       workspace 1 output *
       workspace 2 output *
       workspace 3 output *
       workspace 4 output *
       workspace 5 output *
       exec swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill
-      exec waybar
+      exec eww open bar
       exec ${pkgs.wl-clipboard}/bin/wl-paste --type text --primary --watch ${pkgs.wl-clipboard}/bin/wl-copy
       exec systemctl --user import-environment WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS
       exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway

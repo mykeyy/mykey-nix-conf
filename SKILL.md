@@ -194,9 +194,11 @@ nh os switch ~/.nix
 # Home-manager only; use this for most user-level edits
 nh home switch ~/.nix
 
-# With nushell alias
-rebuild
-rebuild --update   # update flake inputs first
+# With nushell aliases
+rebuild          # full nixos-rebuild switch
+rebuild --update # update flake inputs first
+hms              # home-manager only (faster, no sudo)
+hms --update     # update flake inputs then home switch
 ```
 
 ---
@@ -213,6 +215,7 @@ rebuild --update   # update flake inputs first
 | `import-tree` | Dendritic auto-import |
 | `zen-browser` | Web browser |
 | `opencode` | AI coding assistant |
+| `spicetify-nix` | Spicetify themes + extensions |
 
 
 ---
@@ -310,6 +313,8 @@ rebuild --update   # update flake inputs first
 # Common rebuild commands
 rebuild              # nushell alias → full nixos-rebuild switch
 rebuild --update     # update flake inputs first
+hms                  # nushell alias → nh home switch (no sudo, faster)
+hms --update         # update flake inputs then home switch
 nh os switch ~/.nix  # alternative system rebuild
 nh home switch ~/.nix  # home-manager only (faster)
 

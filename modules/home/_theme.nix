@@ -1,6 +1,4 @@
 { ... }: {
-  stylix.targets.plasma.enable = false;
-
   xdg.configFile = {
     "kglobalshortcutsrc".source = ../../configs/kglobalshortcutsrc;
     "kwinrc".source = ../../configs/kwinrc;

@@ -19,7 +19,6 @@
       $env.VISUAL = "${pkgs.helix}/bin/hx";
       $env.NH_FLAKE = $"($env.HOME)/.nix";
       $env.NH_OS_FLAKE = $"($env.HOME)/.nix";
-      $env.NH_DARWIN_FLAKE = $"($env.HOME)/.nix";
       $env.NH_HOME_FLAKE = $"($env.HOME)/.nix";
       $env.PATH = ($env.PATH | split row (char esep))
       | prepend "/run/current-system/sw/bin"
@@ -73,13 +72,13 @@
 
       export def rebuild [--update (-u)] {
         let flake = $"($env.HOME)/.nix"
-        if $update { nix flake update $flake }
+        if $update { nix flake update --flake $flake }
         /run/wrappers/bin/sudo nixos-rebuild switch --flake $"($flake)#tp490s"
       }
 
       export def hms [--update (-u)] {
         let flake = $"($env.HOME)/.nix"
-        if $update { nix flake update $flake }
+        if $update { nix flake update --flake $flake }
         nh home switch $flake
       }
 
@@ -88,13 +87,12 @@
       }
       $env.x = true
 
-      mkdir ($nu.data-dir | path join "vendor/autoload")
-      ${pkgs.starship}/bin/starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
     '';
   };
 
   programs.starship = {
     enable = true;
+    enableNushellIntegration = true;
     settings = builtins.fromTOML (builtins.readFile ../../configs/starship.toml);
   };
 

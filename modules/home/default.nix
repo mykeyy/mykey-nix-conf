@@ -17,6 +17,7 @@
       ./_spotify.nix
       ./_sway.nix
       ./_hyprland.nix
+      ./_hypridle.nix
       ./_hyprpaper.nix
     ];
 

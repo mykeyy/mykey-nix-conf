@@ -6,6 +6,7 @@
       enable = true;
       autoEnable = true;
       targets.qt.enable = false;
+      targets.gtk.enable = true;
       polarity = "dark";
       image = ../../wallpapers/wallpaper.jpg;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";

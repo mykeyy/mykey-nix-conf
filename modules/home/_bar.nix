@@ -27,4 +27,6 @@
     "eww/eww.yuck".source = ../../configs/eww/eww.yuck;
     "kanshi/config".source = ../../configs/kanshi;
   };
+
+  services.kanshi.enable = true;
 }

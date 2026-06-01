@@ -28,7 +28,6 @@
       bars = [ ];
       terminal = "ghostty";
       menu = "${pkgs.tofi}/bin/tofi-drun --drun-launch=true";
-      output."*".bg = "${../../wallpapers/wallpaper.jpg} fill";
       gaps = {
         inner = 12;
         outer = 10;

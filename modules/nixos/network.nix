@@ -9,7 +9,14 @@
       connection.route-metric=50
     '';
 
-    services.openssh.enable = true;
+    services.openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+        X11Forwarding = false;
+      };
+    };
     networking.firewall.allowedTCPPorts = [ 22 1714 1764 ];
     networking.firewall.allowedUDPPorts = [ 1714 1764 ];
     services.tailscale.enable = true;

@@ -79,9 +79,9 @@
         [
           "$mod SHIFT CTRL, Q, exit"
 
-          "$mod, Return, exec, ghostty"
+          "$mod, Return, exec, ${pkgs.ghostty}/bin/ghostty"
           "$mod SHIFT, E, exec, power-menu"
-          "$mod, L, exec, swaylock"
+          "$mod, L, exec, ${pkgs.swaylock}/bin/swaylock"
 
           "$mod SHIFT, Q, killactive"
 
@@ -146,7 +146,6 @@
       windowrulev2 = [
         "float,class:^(pavucontrol)$"
         "size 50% 60%,class:^(pavucontrol)$"
-        "float,class:^(wofi)$"
         "float,class:^(tofi)$"
         "opacity 0.90 0.90,class:^(ghostty)$"
         "opacity 0.90 0.70 1.0,class:^(zen)$"

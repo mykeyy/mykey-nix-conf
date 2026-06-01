@@ -35,7 +35,6 @@
 
     services.xserver.xkb.layout = "us";
 
-    environment.systemPackages = [ ];
 
     users.users.mykey = {
       isNormalUser = true;

@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     fd
-    btop
     gh
     glab
     lazygit
@@ -12,27 +11,23 @@
     killall
     unzip
     opencode
-    tofi
     swaybg
     swaylock
     wl-clipboard
     grim
     slurp
-    nerd-fonts.jetbrains-mono
-    eww
     vivid
     playerctl
     bluez
     bluetuith
     antigravity
     aider-chat-full
-    nodejs
-    bun
     libreoffice-qt-fresh
     libnotify
     jq
-    xclip
     satty
+    brightnessctl
+    wdisplays
     (callPackage ../../tools/screenshot { })
     (pkgs.writeShellScriptBin "annotate" ''
       ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | \

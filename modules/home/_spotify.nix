@@ -5,6 +5,8 @@ in {
   stylix.targets.spotify-player.enable = false;
   stylix.targets.spicetify.enable = false;
 
+  xdg.configFile."spotify-player/theme.toml".source = ../../configs/spotify-player-theme.toml;
+
   programs.spotify-player = {
     enable = true;
     settings = {

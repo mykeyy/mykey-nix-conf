@@ -1,6 +1,7 @@
 { lib, pkgs, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
+    systemd.enable = true;
     configType = "hyprlang";
 
     settings = {
@@ -67,12 +68,19 @@
         vfr = true;
       };
 
+      env = [
+        "GTK_THEME,adw-gtk3-dark"
+        "GTK2_RC_FILES,/dev/null"
+        "XCURSOR_SIZE,24"
+      ];
+
       exec-once = [
         "swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill"
         "eww open bar"
-        "systemctl --user import-environment WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS"
-        "systemctl --user restart xdg-desktop-portal-hyprland"
-        "${pkgs.wl-clipboard}/bin/wl-paste --type text --primary --watch ${pkgs.wl-clipboard}/bin/wl-copy"
+        # wl-clipboard primary sync — cliphist handles clipboard; keep only text sync
+        "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.wl-clipboard}/bin/wl-copy"
+        # Tell all libadwaita/portal apps to prefer dark color scheme
+        "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_THEME"
       ];
 
       bind = lib.concatLists [

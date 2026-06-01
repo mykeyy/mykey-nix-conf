@@ -2,7 +2,6 @@
   programs.eww.enable = true;
 
   xdg.configFile = {
-    # CSS stays inline — no separate .scss file needed
     "eww/eww.scss".text = ''
       * { all: unset; }
       .bar { background-color: #191724; color: #e0def4; padding: 10px; }
@@ -23,7 +22,6 @@
       .label.battery-full { color: #e0def4; }
     '';
 
-    # Yuck kept as source file to avoid Nix string escaping issues
     "eww/eww.yuck".source = ../../configs/eww/eww.yuck;
     "kanshi/config".source = ../../configs/kanshi;
   };

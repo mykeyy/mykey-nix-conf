@@ -77,9 +77,7 @@
       exec-once = [
         "swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill"
         "eww open bar"
-        # wl-clipboard primary sync — cliphist handles clipboard; keep only text sync
         "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.wl-clipboard}/bin/wl-copy"
-        # Tell all libadwaita/portal apps to prefer dark color scheme
         "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_THEME"
       ];
 

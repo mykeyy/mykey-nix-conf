@@ -1,8 +1,4 @@
 { ... }: {
-  # Plasma theming is managed via static config files below.
-  # Disable Stylix's Plasma target to prevent it from running
-  # plasma-apply-lookandfeel and xrdb at activation time (before
-  # any display is available), which causes noisy boot errors.
   stylix.targets.plasma.enable = false;
 
   xdg.configFile = {

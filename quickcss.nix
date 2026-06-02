@@ -1,4 +1,3 @@
-/* Rose Pine Vencord theme */
 .theme-dark {
   --background-primary: #191724;
   --background-secondary: #1f1d2e;

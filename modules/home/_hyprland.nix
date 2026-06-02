@@ -70,6 +70,7 @@
 
       env = [
         "XCURSOR_SIZE,24"
+        "AQ_NO_MODIFIERS,1"
       ];
 
       exec-once = [
@@ -84,7 +85,7 @@
 
           "$mod, Return, exec, ${pkgs.ghostty}/bin/ghostty"
           "$mod SHIFT, E, exec, power-menu"
-          "$mod, L, exec, ${pkgs.swaylock}/bin/swaylock"
+          "$mod, L, exec, ${pkgs.swaylock-effects}/bin/swaylock --image ${../../wallpapers/wallpaper.jpg} --scaling fill --effect-blur 7x5 --effect-vignette 0.5:0.5 --clock --indicator --fade-in 0.2 --indicator-radius 100 --indicator-thickness 7 --ring-color 908caa --key-hl-color eb6f92 --inside-color 232136 --line-color 44415a --text-color e0def4 --separator-color 44415a -f"
 
           "$mod SHIFT, Q, killactive"
 
@@ -96,7 +97,7 @@
           "$mod SHIFT, TAB, togglefloating"
 
           "$mod, P, exec, wdisplays"
-          "$alt, Space, exec, ${pkgs.tofi}/bin/tofi-drun --drun-launch=true"
+          "$alt, Space, exec, ${pkgs.tofi}/bin/tofi-drun | xargs uwsm app --"
           "$alt, S, exec, screenshot"
           ", Print, exec, screenshot"
           "$alt, Print, exec, annotate"

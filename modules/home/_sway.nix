@@ -27,7 +27,7 @@
       modifier = "Mod4";
       bars = [ ];
       terminal = "ghostty";
-      menu = "${pkgs.tofi}/bin/tofi-drun --drun-launch=true";
+      menu = "${pkgs.tofi}/bin/tofi-drun | xargs -r swaymsg exec --";
       gaps = {
         inner = 12;
         outer = 10;
@@ -42,9 +42,9 @@
         "Mod1+f1" = "reload";
         "Mod4+Shift+e" = "exec power-menu";
         "Mod4+Shift+q" = "kill";
-        "Mod4+l" = "exec ${pkgs.swaylock}/bin/swaylock";
+        "Mod4+l" = "exec ${pkgs.swaylock-effects}/bin/swaylock --image ${../../wallpapers/wallpaper.jpg} --scaling fill --effect-blur 7x5 --effect-vignette 0.5:0.5 --clock --indicator --fade-in 0.2 --indicator-radius 100 --indicator-thickness 7 --ring-color 908caa --key-hl-color eb6f92 --inside-color 232136 --line-color 44415a --text-color e0def4 --separator-color 44415a -f";
         "Mod4+Return" = "exec ghostty";
-        "Mod1+Space" = "exec ${pkgs.tofi}/bin/tofi-drun --drun-launch=true";
+        "Mod1+Space" = "exec ${pkgs.tofi}/bin/tofi-drun | xargs -r swaymsg exec --";
         "Mod4+p" = "exec wdisplays";
         "Print" = "exec screenshot";
         "Mod1+Print" = "exec annotate";

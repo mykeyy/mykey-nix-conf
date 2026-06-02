@@ -24,6 +24,7 @@
     hardware.enableAllFirmware = true;
     hardware.bluetooth.enable = true;
     services.libinput.enable = true;
+    security.pam.services.swaylock = {};
 
     home-manager = {
       useGlobalPkgs = true;

@@ -32,4 +32,6 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = true;
+
+  services.thermald.enable = true;
 }

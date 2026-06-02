@@ -4,6 +4,7 @@
     imports = [
       inputs.nixcord.homeModules.nixcord
       inputs.spicetify-nix.homeManagerModules.default
+      inputs.stylix.homeModules.stylix
       ./_core.nix
       ./_shell.nix
       ./_terminal.nix
@@ -22,6 +23,12 @@
     ];
 
     gtk.gtk4.theme = config.gtk.theme;
+
+    dconf.settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+    };
 
     programs.nixcord = {
       enable = true;

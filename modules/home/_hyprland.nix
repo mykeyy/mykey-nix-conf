@@ -69,8 +69,6 @@
       };
 
       env = [
-        "GTK_THEME,adw-gtk3-dark"
-        "GTK2_RC_FILES,/dev/null"
         "XCURSOR_SIZE,24"
       ];
 
@@ -78,7 +76,6 @@
         "swaybg -i ${../../wallpapers/wallpaper.jpg} -m fill"
         "eww open bar"
         "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.wl-clipboard}/bin/wl-copy"
-        "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_THEME"
       ];
 
       bind = lib.concatLists [

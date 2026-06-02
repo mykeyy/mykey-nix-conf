@@ -4,7 +4,6 @@
     imports = [
       inputs.nixcord.homeModules.nixcord
       inputs.spicetify-nix.homeManagerModules.default
-      inputs.stylix.homeModules.stylix
       ./_core.nix
       ./_shell.nix
       ./_terminal.nix

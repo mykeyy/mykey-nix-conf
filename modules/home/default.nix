@@ -17,12 +17,8 @@
       ./_spotify.nix
       ./_sway.nix
       ./_swayidle.nix
-      ./_hyprland.nix
-      ./_hypridle.nix
-      ./_hyprpaper.nix
+      ./_river.nix
     ];
-
-    gtk.gtk4.theme = config.gtk.theme;
 
     dconf.settings = {
       "org/gnome/desktop/interface" = {

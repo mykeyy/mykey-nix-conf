@@ -5,15 +5,13 @@
       ./_hardware.nix
       base
       greetd
-      plasma
       swayfx
-      hyprland
+      river
       hardware-acceleration
       audio
       network
       printing
       packages
-      stylix
       zen-browser
     ];
 

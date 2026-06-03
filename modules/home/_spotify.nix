@@ -2,9 +2,6 @@
 let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
-  stylix.targets.spotify-player.enable = false;
-  stylix.targets.spicetify.enable = false;
-
   xdg.configFile."spotify-player/theme.toml".source = ../../configs/spotify-player-theme.toml;
 
   programs.spotify-player = {

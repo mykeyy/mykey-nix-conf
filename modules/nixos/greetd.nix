@@ -19,7 +19,6 @@
     };
 
     programs.regreet.enable = true;
-    stylix.targets.regreet.enable = true;
     environment.systemPackages = [ pkgs.cage ];
     services.accounts-daemon.enable = true;
   };

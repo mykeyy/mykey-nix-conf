@@ -38,7 +38,6 @@ let
         mykey = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
-            inputs.stylix.homeModules.stylix
             config.flake.modules.homeManager.base
           ];
           extraSpecialArgs = { inherit inputs rootPath; };

@@ -6,6 +6,14 @@
       url = "github:anomalyco/opencode/dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";

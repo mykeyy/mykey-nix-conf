@@ -4,6 +4,7 @@
     imports = with config.flake.modules.nixos; [
       ./_hardware.nix
       base
+      stylix
       ly
       swayfx
       hardware-acceleration

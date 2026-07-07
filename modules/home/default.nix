@@ -36,7 +36,7 @@
         plugins = {
           alwaysAnimate.enable = true;
           betterSettings.enable = true;
-          ClearURLs.enable = true;
+          clearUrls.enable = true;
           spotifyControls.enable = true;
           viewRaw.enable = true;
         };

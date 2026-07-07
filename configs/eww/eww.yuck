@@ -9,6 +9,9 @@
     (metric :label "${(volume == "0") ? "   " : ((volume < "75") ? "  " : "  ")} ${volume}%"
             :value volume
             :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
+    (metric :label "   ${brightness}%"
+            :value brightness
+            :onchange "brightnessctl set {}%")
     (metric :label "   ${round(EWW_RAM.used_mem_perc, 0)}%"
             :value {EWW_RAM.used_mem_perc}
             :onchange "")
@@ -63,6 +66,9 @@
 
 (defpoll volume :interval "1s" :initial "50"
   "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ print int($2 * 100) }'")
+
+(defpoll brightness :interval "1s" :initial "100"
+  "brightnessctl -m | cut -d, -f4 | tr -d '%'")
 
 (deflisten active_ws :initial "1"
   "swaymsg -m -t subscribe '[\"workspace\"]' | jq --unbuffered -r '.current.name // empty'")

@@ -53,6 +53,8 @@
         "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.5";
         "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
         "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        "XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
+        "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
         "Mod1+1" = "workspace number 1";
         "Mod1+2" = "workspace number 2";
         "Mod1+3" = "workspace number 3";

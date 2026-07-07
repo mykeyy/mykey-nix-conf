@@ -26,7 +26,7 @@
       isNormalUser = true;
       description = "mykey";
       shell = pkgs.nushell;
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "video" ];
     };
 
     system.stateVersion = "25.11";

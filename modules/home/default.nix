@@ -17,7 +17,6 @@
       ./_spotify.nix
       ./_sway.nix
       ./_swayidle.nix
-      ./_river.nix
     ];
 
     dconf.settings = {

@@ -1,4 +1,16 @@
 { pkgs, ... }: {
+  xdg.desktopEntries.godot-engine = {
+    name = "Godot Engine";
+    genericName = "Game Engine";
+    comment = "Create 2D and 3D games";
+    exec = "godot4-mono";
+    terminal = false;
+    categories = [
+      "Development"
+      "IDE"
+    ];
+  };
+
   home.packages = with pkgs; [
     fd
     gh
@@ -7,6 +19,9 @@
     prismlauncher
     nh
     yazi
+    godot_4-mono
+    godotPackages_4.export-templates-mono-bin
+    dotnet-sdk
     obs-studio
     killall
     unzip

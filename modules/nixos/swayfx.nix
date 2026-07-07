@@ -4,5 +4,7 @@
       enable = true;
       package = pkgs.swayfx;
     };
+
+    services.displayManager.defaultSession = "sway";
   };
 }

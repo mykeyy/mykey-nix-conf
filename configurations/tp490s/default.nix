@@ -4,9 +4,8 @@
     imports = with config.flake.modules.nixos; [
       ./_hardware.nix
       base
-      greetd
+      ly
       swayfx
-      river
       hardware-acceleration
       audio
       network

@@ -14,11 +14,6 @@
 
     import-tree.url = "github:vic/import-tree";
 
-    beansprout-src = {
-      url = "git+https://codeberg.org/beansprout/beansprout";
-      flake = false;
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

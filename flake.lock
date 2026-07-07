@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "beansprout-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1780495173,
-        "narHash": "sha256-ltHe8IypWe0aB4X+Bq/nzXhTrz7T3x8GxW0ooNjQ9Vw=",
-        "ref": "refs/heads/main",
-        "rev": "6b66bb57224b8e926308dd337833495ba01a4c38",
-        "revCount": 237,
-        "type": "git",
-        "url": "https://codeberg.org/beansprout/beansprout"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://codeberg.org/beansprout/beansprout"
-      }
-    },
     "flake-compat": {
       "locked": {
         "lastModified": 1733328505,
@@ -180,11 +164,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779646119,
-        "narHash": "sha256-z5L6GsDggyVdRHZ026lT6hecstfMLGqWdXCrLPcZrqY=",
+        "lastModified": 1782190675,
+        "narHash": "sha256-HfwEk4/EbLBAA7BYkOyCIe2eKReOIbFyDc0Qnw+qd94=",
         "owner": "anomalyco",
         "repo": "opencode",
-        "rev": "47f333299bb193f28dfdd94ccc43e55c529198ee",
+        "rev": "40db33c4153bbea5776f90f707a48129b3b2d872",
         "type": "github"
       },
       "original": {
@@ -196,7 +180,6 @@
     },
     "root": {
       "inputs": {
-        "beansprout-src": "beansprout-src",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "import-tree": "import-tree",

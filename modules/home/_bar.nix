@@ -3,7 +3,7 @@
 
   xdg.configFile = {
     "eww/eww.scss".text = ''
-      * { all: unset; }
+      * { all: unset; font-family: "JetBrainsMono Nerd Font", sans-serif; }
       .bar { background-color: #191724; color: #e0def4; padding: 10px; }
       .sidestuff slider { all: unset; color: #ffd5cd; }
       .metric scale trough highlight { all: unset; background-color: #ebbcba; color: #000000; border-radius: 10px; }
